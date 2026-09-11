@@ -1,24 +1,3 @@
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  const toggle = document.getElementById("theme-toggle");
-  toggle.textContent = theme === "light" ? "☀️" : "🌙";
-}
-
-function initTheme() {
-  const saved = localStorage.getItem("theme");
-  const preferred = saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-  applyTheme(preferred);
-}
-
-document.getElementById("theme-toggle").addEventListener("click", () => {
-  const current = document.documentElement.getAttribute("data-theme");
-  const next = current === "light" ? "dark" : "light";
-  localStorage.setItem("theme", next);
-  applyTheme(next);
-});
-
-initTheme();
-
 function ballColor(n) {
   if (n <= 10) return "yellow";
   if (n <= 20) return "blue";

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제휴 문의</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <button id="theme-toggle" class="theme-toggle" aria-label="다크/화이트 모드 전환" title="다크/화이트 모드 전환">🌙</button>
+      <h1>🤝 제휴 문의</h1>
+      <p class="subtitle">협업/광고/제휴 관련 문의를 남겨주시면 빠르게 확인할게요</p>
+    </header>
+
+    <section class="controls">
+      <form id="partnership-form" action="https://formspree.io/f/xkjnekng" method="POST">
+        <div class="form-field">
+          <label for="name">이름 / 담당자명</label>
+          <input type="text" id="name" name="name" placeholder="홍길동" required>
+        </div>
+
+        <div class="form-field">
+          <label for="company">회사 / 브랜드명</label>
+          <input type="text" id="company" name="company" placeholder="예: 로또킹 주식회사">
+        </div>
+
+        <div class="form-field">
+          <label for="email">이메일</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-field">
+          <label for="message">문의 내용</label>
+          <textarea id="message" name="message" rows="5" placeholder="제휴하고 싶은 내용을 자유롭게 작성해주세요" required></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="_subject" value="[TurtleKing] 새 제휴 문의">
+
+        <button type="submit" class="generate-btn">문의 보내기</button>
+      </form>
+
+      <p id="form-status" class="form-status" hidden></p>
+    </section>
+
+    <footer>
+      <p><a href="index.html">← 로또 번호 생성기로 돌아가기</a></p>
+    </footer>
+  </div>
+
+<script src="theme.js"></script>
+<script src="partnership.js"></script>
+</body>
+</html>
