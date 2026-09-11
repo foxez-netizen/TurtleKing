@@ -2,15 +2,42 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-start: #1e293b;
+  --bg-end: #0f172a;
+  --text: #f1f5f9;
+  --subtitle: #94a3b8;
+  --panel-bg: #1e293bcc;
+  --panel-border: #334155;
+  --input-border: #475569;
+  --input-bg: #0f172a;
+  --placeholder: #64748b;
+  --footer-text: #64748b;
+}
+
+[data-theme="light"] {
+  --bg-start: #f8fafc;
+  --bg-end: #e2e8f0;
+  --text: #0f172a;
+  --subtitle: #475569;
+  --panel-bg: #ffffffcc;
+  --panel-border: #cbd5e1;
+  --input-border: #cbd5e1;
+  --input-bg: #ffffff;
+  --placeholder: #94a3b8;
+  --footer-text: #64748b;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Roboto, sans-serif;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  color: #f1f5f9;
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  color: var(--text);
   display: flex;
   justify-content: center;
   padding: 32px 16px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .wrap {
@@ -19,8 +46,31 @@ body {
 }
 
 header {
+  position: relative;
   text-align: center;
   margin-bottom: 28px;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--panel-border);
+  background: var(--panel-bg);
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
 }
 
 h1 {
@@ -30,16 +80,17 @@ h1 {
 
 .subtitle {
   margin: 0;
-  color: #94a3b8;
+  color: var(--subtitle);
   font-size: 0.95rem;
 }
 
 .controls {
-  background: #1e293bcc;
-  border: 1px solid #334155;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 24px;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .control-row {
@@ -52,7 +103,7 @@ h1 {
 
 .control-row label {
   font-size: 0.9rem;
-  color: #cbd5e1;
+  color: var(--subtitle);
   white-space: nowrap;
 }
 
@@ -62,14 +113,15 @@ h1 {
   max-width: 220px;
   padding: 8px 10px;
   border-radius: 8px;
-  border: 1px solid #475569;
-  background: #0f172a;
-  color: #f1f5f9;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text);
   font-size: 0.95rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .control-row input::placeholder {
-  color: #64748b;
+  color: var(--placeholder);
 }
 
 .generate-btn {
@@ -103,16 +155,17 @@ h1 {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #1e293bcc;
-  border: 1px solid #334155;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
   border-radius: 14px;
   padding: 14px 16px;
   animation: fadeIn 0.35s ease both;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .game-label {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--subtitle);
   width: 44px;
   flex-shrink: 0;
 }
@@ -146,7 +199,7 @@ h1 {
 footer {
   text-align: center;
   margin-top: 32px;
-  color: #64748b;
+  color: var(--footer-text);
   font-size: 0.85rem;
 }
 
