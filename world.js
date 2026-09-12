@@ -1,42 +1,3 @@
-const GAMES = {
-  kr645: {
-    name: "🇰🇷 한국 로또 6/45",
-    main: { count: 6, min: 1, max: 45 },
-  },
-  powerball: {
-    name: "🇺🇸 Powerball",
-    main: { count: 5, min: 1, max: 69 },
-    bonus: { label: "PB", count: 1, min: 1, max: 26 },
-  },
-  megamillions: {
-    name: "🇺🇸 Mega Millions",
-    main: { count: 5, min: 1, max: 70 },
-    bonus: { label: "MB", count: 1, min: 1, max: 25 },
-  },
-  euromillions: {
-    name: "🇪🇺 EuroMillions",
-    main: { count: 5, min: 1, max: 50 },
-    bonus: { label: "★", count: 2, min: 1, max: 12 },
-  },
-  uklotto: {
-    name: "🇬🇧 UK Lotto",
-    main: { count: 6, min: 1, max: 59 },
-  },
-  loto6: {
-    name: "🇯🇵 ロト6",
-    main: { count: 6, min: 1, max: 43 },
-  },
-  auspowerball: {
-    name: "🇦🇺 Powerball (Australia)",
-    main: { count: 7, min: 1, max: 35 },
-    bonus: { label: "PB", count: 1, min: 1, max: 20 },
-  },
-  superenalotto: {
-    name: "🇮🇹 SuperEnalotto",
-    main: { count: 6, min: 1, max: 90 },
-  },
-};
-
 function bandColor(n, max) {
   const ratio = n / max;
   if (ratio <= 0.2) return "yellow";
@@ -91,7 +52,7 @@ function populateGameSelect() {
   Object.entries(GAMES).forEach(([key, config]) => {
     const option = document.createElement("option");
     option.value = key;
-    option.textContent = config.name;
+    option.textContent = `${config.flag} ${config.country} · ${config.name}`;
     select.appendChild(option);
   });
   if (GAMES[APP_I18N.game]) {
@@ -106,9 +67,28 @@ function populateQuickFlags() {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "flag-btn";
-    btn.textContent = config.name;
-    btn.setAttribute("aria-label", config.name);
+    btn.setAttribute("aria-label", `${config.country} ${config.name}`);
     btn.dataset.game = key;
+
+    const icon = document.createElement("span");
+    icon.className = "flag-icon";
+    icon.textContent = config.flag;
+    btn.appendChild(icon);
+
+    const text = document.createElement("span");
+    text.className = "flag-text";
+
+    const country = document.createElement("span");
+    country.className = "flag-country";
+    country.textContent = config.country;
+    text.appendChild(country);
+
+    const game = document.createElement("span");
+    game.className = "flag-game";
+    game.textContent = config.name;
+    text.appendChild(game);
+
+    btn.appendChild(text);
     container.appendChild(btn);
   });
 }

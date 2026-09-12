@@ -1,3 +1,37 @@
+function populateWorldQuickLinks() {
+  const container = document.getElementById("world-quick-flags");
+  if (!container) return;
+  Object.entries(GAMES).forEach(([key, config]) => {
+    const link = document.createElement("a");
+    link.className = "flag-btn";
+    link.href = `world.html?game=${key}&lang=${APP_I18N.gameLang(key)}`;
+    link.setAttribute("aria-label", `${config.country} ${config.name}`);
+
+    const icon = document.createElement("span");
+    icon.className = "flag-icon";
+    icon.textContent = config.flag;
+    link.appendChild(icon);
+
+    const text = document.createElement("span");
+    text.className = "flag-text";
+
+    const country = document.createElement("span");
+    country.className = "flag-country";
+    country.textContent = config.country;
+    text.appendChild(country);
+
+    const game = document.createElement("span");
+    game.className = "flag-game";
+    game.textContent = config.name;
+    text.appendChild(game);
+
+    link.appendChild(text);
+    container.appendChild(link);
+  });
+}
+
+populateWorldQuickLinks();
+
 function ballColor(n) {
   if (n <= 10) return "yellow";
   if (n <= 20) return "blue";

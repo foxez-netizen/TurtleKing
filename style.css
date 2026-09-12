@@ -236,9 +236,29 @@ footer a {
   width: 260px;
 }
 
+.world-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  width: 260px;
+}
+
+.world-links-label {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.world-links-label:hover {
+  text-decoration: underline;
+}
+
 .flag-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  gap: 8px;
   width: 100%;
   padding: 8px 12px;
   border-radius: 10px;
@@ -246,9 +266,38 @@ footer a {
   background: var(--panel-bg);
   color: var(--text);
   font-size: 0.85rem;
-  white-space: nowrap;
   cursor: pointer;
   transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.flag-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.flag-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.flag-country {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flag-game {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .flag-btn:hover {
@@ -263,7 +312,8 @@ footer a {
   .main-row {
     flex-direction: column;
   }
-  .quick-flags {
+  .quick-flags,
+  .world-links {
     width: 100%;
   }
 }
@@ -410,10 +460,6 @@ footer {
   margin-top: 32px;
   color: var(--footer-text);
   font-size: 0.85rem;
-}
-
-footer .footer-right {
-  text-align: right;
 }
 
 @keyframes fadeIn {
