@@ -184,9 +184,31 @@ function renderGames(config, games) {
     }
 
     row.appendChild(balls);
+
+    const selectBtn = document.createElement("button");
+    selectBtn.type = "button";
+    selectBtn.className = "select-btn";
+    selectBtn.textContent = APP_I18N.t("selectBtn");
+    row.appendChild(selectBtn);
+
     results.appendChild(row);
   });
 }
+
+document.getElementById("results").addEventListener("click", (e) => {
+  const btn = e.target.closest(".select-btn");
+  if (!btn) return;
+  const row = btn.closest(".game-row");
+  const selected = row.classList.toggle("selected");
+  if (selected) {
+    btn.textContent = APP_I18N.t("selectedBtn");
+    const rect = btn.getBoundingClientRect();
+    celebrateAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    showWishToast(APP_I18N.t("wishMessage"));
+  } else {
+    btn.textContent = APP_I18N.t("selectBtn");
+  }
+});
 
 function selectGame(key) {
   document.getElementById("game").value = key;

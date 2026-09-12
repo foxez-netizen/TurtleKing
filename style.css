@@ -277,13 +277,80 @@ footer a {
 .game-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
   border-radius: 14px;
   padding: 14px 16px;
   animation: fadeIn 0.35s ease both;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-row.selected {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px #fbbf2455, 0 6px 18px #fbbf2433;
+  animation: selectPop 0.4s ease;
+}
+
+.select-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--panel-border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.select-btn:hover {
+  transform: scale(1.06);
+}
+
+.select-btn:active {
+  transform: scale(0.95);
+}
+
+.game-row.selected .select-btn {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-color: #f59e0b;
+  color: #1a1a1a;
+}
+
+@keyframes selectPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.wish-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translate(-50%, 20px);
+  max-width: min(90vw, 420px);
+  text-align: center;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #ffffff;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+.wish-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .game-label {

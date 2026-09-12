@@ -18,6 +18,9 @@ const I18N_STRINGS = {
     bonusInfo: (label, min, max, count) => ` + 보너스(${label}) ${min}~${max} 중 ${count}개`,
     gameRowLabel: (n) => `${n}게임`,
     quickFlagsLabel: "국가별 빠른 생성",
+    selectBtn: "⭐ 이 번호 선택",
+    selectedBtn: "✅ 선택됨",
+    wishMessage: "이 번호가 당첨되길 기원합니다! 🍀✨",
   },
   en: {
     worldLink: "🌍 View World Lottery Number Generator",
@@ -38,6 +41,9 @@ const I18N_STRINGS = {
     bonusInfo: (label, min, max, count) => ` + Bonus (${label}): ${count} of ${min}–${max}`,
     gameRowLabel: (n) => `Game ${n}`,
     quickFlagsLabel: "Quick generate by country",
+    selectBtn: "⭐ Pick this one",
+    selectedBtn: "✅ Selected",
+    wishMessage: "Wishing you the jackpot with this one! 🍀✨",
   },
   ja: {
     worldLink: "🌍 世界の宝くじ番号ジェネレーターを見る",
@@ -58,6 +64,9 @@ const I18N_STRINGS = {
     bonusInfo: (label, min, max, count) => ` + ボーナス(${label}) ${min}〜${max}のうち${count}個`,
     gameRowLabel: (n) => `${n}ゲーム`,
     quickFlagsLabel: "国別クイック生成",
+    selectBtn: "⭐ この番号を選ぶ",
+    selectedBtn: "✅ 選択済み",
+    wishMessage: "この番号が当たりますように！🍀✨",
   },
   it: {
     worldLink: "🌍 Vedi il Generatore di Numeri della Lotteria Mondiale",
@@ -78,6 +87,9 @@ const I18N_STRINGS = {
     bonusInfo: (label, min, max, count) => ` + Bonus (${label}): ${count} su ${min}–${max}`,
     gameRowLabel: (n) => `Partita ${n}`,
     quickFlagsLabel: "Generazione rapida per paese",
+    selectBtn: "⭐ Scegli questo",
+    selectedBtn: "✅ Selezionato",
+    wishMessage: "Che questi numeri ti portino il jackpot! 🍀✨",
   },
 };
 

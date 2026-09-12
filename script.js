@@ -61,9 +61,30 @@ function renderGames(games) {
     });
     row.appendChild(balls);
 
+    const selectBtn = document.createElement("button");
+    selectBtn.type = "button";
+    selectBtn.className = "select-btn";
+    selectBtn.textContent = "⭐ 이 번호 선택";
+    row.appendChild(selectBtn);
+
     results.appendChild(row);
   });
 }
+
+document.getElementById("results").addEventListener("click", (e) => {
+  const btn = e.target.closest(".select-btn");
+  if (!btn) return;
+  const row = btn.closest(".game-row");
+  const selected = row.classList.toggle("selected");
+  if (selected) {
+    btn.textContent = "✅ 선택됨";
+    const rect = btn.getBoundingClientRect();
+    celebrateAt(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    showWishToast("이 번호가 당첨되길 기원합니다! 🍀✨");
+  } else {
+    btn.textContent = "⭐ 이 번호 선택";
+  }
+});
 
 const excludeInput = document.getElementById("exclude");
 const excludeHint = document.getElementById("exclude-hint");
