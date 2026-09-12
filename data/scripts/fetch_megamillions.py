@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Fetch US Mega Millions historical winning numbers from NY State Open Data
-(Socrata) and compute frequency counts.
+(Socrata), write both the aggregate frequency file and the per-draw archive.
 
 Source: https://data.ny.gov/resource/5xaw-6ayf.json (NY Lottery Mega Millions
 winning numbers dataset, official state open-data portal).
@@ -12,11 +12,14 @@ under the CURRENT rules (main 1-70, mega ball 1-25) per games.js, and skip
 older draws so the frequency table stays consistent with a single rule set.
 """
 import json
+import os
 import urllib.request
 from datetime import date
 
 SRC_URL = "https://data.ny.gov/resource/5xaw-6ayf.json"
-OUT_PATH = "/workspaces/TurtleKing/data/megamillions.json"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+OUT_PATH = f"{ROOT}/data/megamillions.json"
+DRAWS_PATH = f"{ROOT}/data/megamillions-draws.json"
 
 MAIN_MIN, MAIN_MAX, MAIN_COUNT = 1, 70, 5
 BONUS_MIN, BONUS_MAX, BONUS_COUNT = 1, 25, 1
@@ -45,6 +48,7 @@ def main():
     total = 0
     dates = []
     skipped_old_rules = 0
+    draws = []
 
     for row in rows:
         d_str = row["draw_date"][:10]
@@ -68,15 +72,22 @@ def main():
             raise ValueError(f"bonus number out of range: {mb} on {d_str}")
         total += 1
         dates.append(d_str)
+        draws.append({"id": d_str, "date": d_str, "main": main_nums, "bonus": [mb]})
 
     assert sum(main_counts.values()) == total * MAIN_COUNT, "main count mismatch"
     assert sum(bonus_counts.values()) == total * BONUS_COUNT, "bonus count mismatch"
+
+    draws.sort(key=lambda x: x["date"])
+    with open(DRAWS_PATH, "w") as f:
+        json.dump(draws, f, ensure_ascii=False)
 
     out = {
         "source": SRC_URL + " (NY State Open Data - Lottery Mega Millions Winning Numbers)",
         "asOf": f"draws from {min(dates)} to {max(dates)} (current 1-70/1-25 rules only; "
                 f"{skipped_old_rules} pre-2017-10-31 draws under the old 1-75/1-15 rules excluded)",
         "totalDraws": total,
+        "latestId": draws[-1]["id"],
+        "latestDate": draws[-1]["date"],
         "main": main_counts,
         "bonus": bonus_counts,
     }

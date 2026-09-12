@@ -42,6 +42,8 @@ def main():
         "source": SRC_URL + " (community mirror of dhlottery.co.kr official draws)",
         "asOf": f"draws 1-{last_no} (latest draw date {last_date})",
         "totalDraws": total,
+        "latestDrawNo": last_no,
+        "latestDrawDate": last_date,
         "main": main_counts,
     }
     with open(OUT_PATH, "w") as f:

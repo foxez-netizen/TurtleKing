@@ -2,6 +2,8 @@
   "source": "https://data.ny.gov/resource/d6yy-54nr.json (NY State Open Data - Lottery Powerball Winning Numbers)",
   "asOf": "draws from 2015-10-07 to 2026-09-09 (current 69/26 rules only; 591 pre-2015-10-07 draws under older number ranges excluded)",
   "totalDraws": 1400,
+  "latestId": "2026-09-09",
+  "latestDate": "2026-09-09",
   "main": {
     "1": 93,
     "2": 101,

@@ -33,6 +33,8 @@ const I18N_STRINGS = {
     infoOddsLabel: (odds) => `현재 선택한 게임의 1등 당첨 확률은 약 ${odds}분의 1입니다.`,
     infoStatsNote: "번호별 실제 과거 당첨 빈도는 이 사이트의 통계 페이지에서 확인할 수 있어요.",
     infoDisclaimer: "본 서비스는 성인 대상 오락용 도구이며, 과도한 복권 구매를 권장하지 않습니다.",
+    seoDrawsLink: "📅 회차별 당첨번호",
+    seoNumbersLink: "🔢 번호별 출현 횟수",
   },
   en: {
     worldLink: "🌍 View World Lottery Number Generator",
@@ -68,6 +70,8 @@ const I18N_STRINGS = {
     infoOddsLabel: (odds) => `The jackpot odds for the currently selected game are about 1 in ${odds}.`,
     infoStatsNote: "You can check each number's real historical draw frequency on this site's stats page.",
     infoDisclaimer: "This service is an entertainment tool for adults and does not encourage excessive lottery spending.",
+    seoDrawsLink: "📅 Draw Archive",
+    seoNumbersLink: "🔢 Number Frequency",
   },
   ja: {
     worldLink: "🌍 世界の宝くじ番号ジェネレーターを見る",
@@ -103,6 +107,8 @@ const I18N_STRINGS = {
     infoOddsLabel: (odds) => `現在選択中のゲームの1等当選確率は約${odds}分の1です。`,
     infoStatsNote: "番号ごとの実際の過去当選頻度は、このサイトの統計ページで確認できます。",
     infoDisclaimer: "本サービスは成人向けの娯楽用ツールであり、過度な宝くじ購入を推奨するものではありません。",
+    seoDrawsLink: "📅 抽せんアーカイブ",
+    seoNumbersLink: "🔢 番号別出現回数",
   },
   it: {
     worldLink: "🌍 Vedi il Generatore di Numeri della Lotteria Mondiale",
@@ -138,6 +144,8 @@ const I18N_STRINGS = {
     infoOddsLabel: (odds) => `Le probabilità di fare jackpot con il gioco selezionato sono di circa 1 su ${odds}.`,
     infoStatsNote: "La frequenza storica reale di ogni numero è consultabile nella pagina delle statistiche di questo sito.",
     infoDisclaimer: "Questo servizio è uno strumento di intrattenimento per adulti e non incoraggia un gioco eccessivo.",
+    seoDrawsLink: "📅 Archivio Estrazioni",
+    seoNumbersLink: "🔢 Frequenza Numeri",
   },
 };
 

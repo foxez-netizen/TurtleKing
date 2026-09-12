@@ -130,6 +130,16 @@ function updateGameInfo() {
   if (oddsEl) {
     oddsEl.textContent = APP_I18N.t("infoOddsLabel", jackpotOdds(config).toLocaleString(APP_I18N.lang));
   }
+
+  const drawsLink = document.getElementById("game-draws-link");
+  const numbersLink = document.getElementById("game-numbers-link");
+  if (drawsLink && numbersLink) {
+    const base = key === "kr645" ? "" : `${key}/`;
+    drawsLink.href = `draws/${base}index.html`;
+    numbersLink.href = `numbers/${base}index.html`;
+    drawsLink.textContent = APP_I18N.t("seoDrawsLink");
+    numbersLink.textContent = APP_I18N.t("seoNumbersLink");
+  }
 }
 
 function nCr(n, r) {

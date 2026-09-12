@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Fetch EuroMillions historical winning numbers and compute frequency counts.
+Fetch EuroMillions historical winning numbers, write both the aggregate
+frequency file and the per-draw archive.
 
 Source: https://www.mes-resultats-fdj.fr/api/telecharger/euromillions
 This mirrors France's FDJ (the lead EuroMillions operator) official draw
@@ -14,11 +15,15 @@ counted here to keep the bonus table consistent with a single rule set.
 """
 import csv
 import io
+import json
+import os
 import urllib.request
 from datetime import date
 
 SRC_URL = "https://www.mes-resultats-fdj.fr/api/telecharger/euromillions"
-OUT_PATH = "/workspaces/TurtleKing/data/euromillions.json"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+OUT_PATH = f"{ROOT}/data/euromillions.json"
+DRAWS_PATH = f"{ROOT}/data/euromillions-draws.json"
 
 MAIN_MIN, MAIN_MAX, MAIN_COUNT = 1, 50, 5
 BONUS_MIN, BONUS_MAX, BONUS_COUNT = 1, 12, 2
@@ -37,6 +42,7 @@ def main():
     total = 0
     dates = []
     skipped_old_rules = 0
+    draws = []
 
     for row in reader:
         d_str = row["date"].strip()  # DD/MM/YYYY
@@ -58,20 +64,27 @@ def main():
             else:
                 raise ValueError(f"bonus number out of range: {s} on {d_str}")
         total += 1
-        dates.append(d.isoformat())
+        iso = d.isoformat()
+        dates.append(iso)
+        draws.append({"id": row["numero_tirage"].strip(), "date": iso, "main": main_nums, "bonus": stars})
 
     assert sum(main_counts.values()) == total * MAIN_COUNT, "main count mismatch"
     assert sum(bonus_counts.values()) == total * BONUS_COUNT, "bonus count mismatch"
+
+    draws.sort(key=lambda x: x["date"])
+    with open(DRAWS_PATH, "w") as f:
+        json.dump(draws, f, ensure_ascii=False)
 
     out = {
         "source": SRC_URL + " (FDJ official EuroMillions draw history mirror)",
         "asOf": f"draws from {min(dates)} to {max(dates)} (current 1-12 star rules only; "
                 f"{skipped_old_rules} pre-2016-09-27 draws under older star ranges excluded)",
         "totalDraws": total,
+        "latestId": draws[-1]["id"],
+        "latestDate": draws[-1]["date"],
         "main": main_counts,
         "bonus": bonus_counts,
     }
-    import json
     with open(OUT_PATH, "w") as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
     print(f"euromillions: {total} draws, {min(dates)}..{max(dates)}, skipped(old rules)={skipped_old_rules}")

@@ -75,6 +75,11 @@ function generateOneGame(excluded) {
 let KR645_STATS = null;
 const KR645_STATS_READY = loadGameStats("kr645").then((stats) => {
   KR645_STATS = stats;
+  const latestLink = document.getElementById("latest-draw-link");
+  if (latestLink && stats && stats.latestDrawNo) {
+    latestLink.href = `draws/${stats.latestDrawNo}.html`;
+    latestLink.textContent = `📅 로또 ${stats.latestDrawNo}회 당첨번호 보기`;
+  }
 });
 
 function renderGames(games) {

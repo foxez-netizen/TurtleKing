@@ -2,6 +2,8 @@
   "source": "https://raw.githubusercontent.com/smok95/lotto/main/results/all.json (community mirror of dhlottery.co.kr official draws)",
   "asOf": "draws 1-1240 (latest draw date 2026-09-05)",
   "totalDraws": 1240,
+  "latestDrawNo": 1240,
+  "latestDrawDate": "2026-09-05",
   "main": {
     "1": 170,
     "2": 156,

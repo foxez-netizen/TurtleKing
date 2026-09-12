@@ -1,7 +1,9 @@
 {
   "source": "http://www.estrazionilottooggi.it/superenalotto/Archivio-superenalotto-<year>/(offset)/<n> (third-party SuperEnalotto draw archive)",
-  "asOf": "draws 2006-2026 (SuperEnalotto itself launched in Dec 1997, but this archive mirror only had data from 2006 onward; years 1997-2005 returned no rows and were skipped)",
+  "asOf": "draws 2006-2026 (SuperEnalotto itself launched in Dec 1997, but this archive mirror only has data from 2006 onward; years 1997-2005 returned no rows and were skipped)",
   "totalDraws": 3244,
+  "latestId": "2026-09-11",
+  "latestDate": "2026-09-11",
   "main": {
     "1": 226,
     "2": 207,

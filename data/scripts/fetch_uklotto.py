@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Fetch UK Lotto historical winning numbers and compute frequency counts.
+Fetch UK Lotto historical winning numbers, write both the aggregate
+frequency file and the per-draw archive.
 
 Source: https://www.beatlottery.co.uk/lotto/draw-history/year/<YEAR>
 (a well-established third-party UK lottery results archive; the official
@@ -18,10 +19,13 @@ draws from that date onward are counted.
 import re
 import time
 import json
+import os
 import urllib.request
 from datetime import date
 
-OUT_PATH = "/workspaces/TurtleKing/data/uklotto.json"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+OUT_PATH = f"{ROOT}/data/uklotto.json"
+DRAWS_PATH = f"{ROOT}/data/uklotto-draws.json"
 BASE_URL = "https://www.beatlottery.co.uk/lotto/draw-history/year/{year}"
 
 MAIN_MIN, MAIN_MAX, MAIN_COUNT = 1, 59, 6
@@ -52,6 +56,7 @@ def main():
     total = 0
     dates = []
     seen = set()
+    draws = []
 
     for year in range(START_YEAR, END_YEAR + 1):
         html = fetch_year(year)
@@ -68,16 +73,24 @@ def main():
                 else:
                     raise ValueError(f"main number out of range: {n} on {d}")
             total += 1
-            dates.append(d.isoformat())
+            iso = d.isoformat()
+            dates.append(iso)
+            draws.append({"id": iso, "date": iso, "main": balls})
         time.sleep(0.5)
 
     assert sum(main_counts.values()) == total * MAIN_COUNT, "main count mismatch"
+
+    draws.sort(key=lambda x: x["date"])
+    with open(DRAWS_PATH, "w") as f:
+        json.dump(draws, f, ensure_ascii=False)
 
     out = {
         "source": "https://www.beatlottery.co.uk/lotto/draw-history/year/<year> (third-party UK Lotto draw archive)",
         "asOf": f"draws from {min(dates)} to {max(dates)} (current 6/59 matrix only; "
                 f"pre-2015-10-10 draws under the old 6/49 matrix excluded)",
         "totalDraws": total,
+        "latestId": draws[-1]["id"],
+        "latestDate": draws[-1]["date"],
         "main": main_counts,
     }
     with open(OUT_PATH, "w") as f:

@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 """
-Fetch US Powerball historical winning numbers from NY State Open Data (Socrata)
-and compute frequency counts.
+Fetch US Powerball historical winning numbers from NY State Open Data (Socrata),
+write both the aggregate frequency file and the per-draw archive.
 
 Source: https://data.ny.gov/resource/d6yy-54nr.json (NY Lottery Powerball
 winning numbers dataset, official state open-data portal).
 """
 import json
+import os
 import urllib.request
 from datetime import date
 
 SRC_URL = "https://data.ny.gov/resource/d6yy-54nr.json"
-OUT_PATH = "/workspaces/TurtleKing/data/powerball.json"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+OUT_PATH = f"{ROOT}/data/powerball.json"
+DRAWS_PATH = f"{ROOT}/data/powerball-draws.json"
 
 MAIN_MIN, MAIN_MAX, MAIN_COUNT = 1, 69, 5
 BONUS_MIN, BONUS_MAX, BONUS_COUNT = 1, 26, 1
@@ -40,6 +43,7 @@ def main():
     total = 0
     dates = []
     skipped_old_rules = 0
+    draws = []
 
     for row in rows:
         d_str = row["draw_date"][:10]
@@ -65,15 +69,22 @@ def main():
             raise ValueError(f"bonus number out of range: {pb}")
         total += 1
         dates.append(d_str)
+        draws.append({"id": d_str, "date": d_str, "main": main_nums, "bonus": [pb]})
 
     assert sum(main_counts.values()) == total * MAIN_COUNT, "main count mismatch"
     assert sum(bonus_counts.values()) == total * BONUS_COUNT, "bonus count mismatch"
+
+    draws.sort(key=lambda x: x["date"])
+    with open(DRAWS_PATH, "w") as f:
+        json.dump(draws, f, ensure_ascii=False)
 
     out = {
         "source": SRC_URL + " (NY State Open Data - Lottery Powerball Winning Numbers)",
         "asOf": f"draws from {min(dates)} to {max(dates)} (current 69/26 rules only; "
                 f"{skipped_old_rules} pre-2015-10-07 draws under older number ranges excluded)",
         "totalDraws": total,
+        "latestId": draws[-1]["id"],
+        "latestDate": draws[-1]["date"],
         "main": main_counts,
         "bonus": bonus_counts,
     }

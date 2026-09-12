@@ -2,6 +2,8 @@
   "source": "https://data.ny.gov/resource/5xaw-6ayf.json (NY State Open Data - Lottery Mega Millions Winning Numbers)",
   "asOf": "draws from 2017-10-31 to 2026-09-11 (current 1-70/1-25 rules only; 1610 pre-2017-10-31 draws under the old 1-75/1-15 rules excluded)",
   "totalDraws": 926,
+  "latestId": "2026-09-11",
+  "latestDate": "2026-09-11",
   "main": {
     "1": 64,
     "2": 64,

@@ -551,6 +551,122 @@ footer a {
   word-break: break-all;
 }
 
+.prize-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 0.85rem;
+}
+
+.prize-table th,
+.prize-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--panel-border);
+  text-align: center;
+}
+
+.prize-table th {
+  color: var(--subtitle);
+  font-weight: 600;
+}
+
+.draw-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  gap: 12px;
+}
+
+.draw-nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: var(--panel-bg);
+  white-space: nowrap;
+  transition: transform 0.1s ease;
+}
+
+.draw-nav a:hover {
+  transform: scale(1.04);
+}
+
+.draw-year-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.draw-year-links a {
+  font-size: 0.78rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recent-list li {
+  font-size: 0.82rem;
+}
+
+.recent-list a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--panel-border);
+}
+
+a.number-index-link {
+  text-decoration: none;
+  transition: transform 0.1s ease;
+}
+
+a.number-index-link:hover {
+  transform: scale(1.08);
+}
+
+.seo-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.seo-banner a {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-border);
+  background: linear-gradient(135deg, #6366f122, #a855f722);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.1s ease;
+}
+
+.seo-banner a:hover {
+  transform: scale(1.03);
+}
+
 footer {
   text-align: center;
   margin-top: 32px;

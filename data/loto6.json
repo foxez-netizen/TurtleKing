@@ -2,6 +2,8 @@
   "source": "https://www.mk-mode.com/rails/loto/LOTO6_ALL.csv (mk-mode Loto 6 complete draw archive)",
   "asOf": "draws from 2000/10/05 to 2026/09/10 (draw 1 to draw 2136)",
   "totalDraws": 2136,
+  "latestId": 2136,
+  "latestDate": "2026-09-10",
   "main": {
     "1": 298,
     "2": 317,

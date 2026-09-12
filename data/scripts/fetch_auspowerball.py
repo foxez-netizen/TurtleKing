@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Fetch Australia Powerball historical winning numbers and compute frequency
-counts.
+Fetch Australia Powerball historical winning numbers, write both the
+aggregate frequency file and the per-draw archive.
 
 Source: https://www.lotto-8.com/Australia/listltoAPOW.asp?indexpage=<N>&orderby=new
 (a third-party lottery-results aggregator; thelott.com, the official
@@ -17,10 +17,14 @@ needed here.
 import re
 import time
 import json
+import os
+import urllib.error
 import urllib.request
 from datetime import date
 
-OUT_PATH = "/workspaces/TurtleKing/data/auspowerball.json"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+OUT_PATH = f"{ROOT}/data/auspowerball.json"
+DRAWS_PATH = f"{ROOT}/data/auspowerball-draws.json"
 BASE = "https://www.lotto-8.com/Australia/listltoAPOW.asp?indexpage={page}&orderby=new"
 
 MAIN_MIN, MAIN_MAX, MAIN_COUNT = 1, 35, 7
@@ -53,6 +57,7 @@ def main():
     total = 0
     dates = []
     seen = set()
+    draws = []
 
     for page in range(1, MAX_PAGES + 1):
         try:
@@ -82,16 +87,24 @@ def main():
             else:
                 raise ValueError(f"bonus number out of range: {bonus} on {d}")
             total += 1
-            dates.append(d.isoformat())
+            iso = d.isoformat()
+            dates.append(iso)
+            draws.append({"id": iso, "date": iso, "main": nums, "bonus": [bonus]})
         time.sleep(0.3)
 
     assert sum(main_counts.values()) == total * MAIN_COUNT, "main count mismatch"
     assert sum(bonus_counts.values()) == total * BONUS_COUNT, "bonus count mismatch"
 
+    draws.sort(key=lambda x: x["date"])
+    with open(DRAWS_PATH, "w") as f:
+        json.dump(draws, f, ensure_ascii=False)
+
     out = {
         "source": "https://www.lotto-8.com/Australia/listltoAPOW.asp (third-party Australia Powerball draw archive)",
         "asOf": f"draws from {min(dates)} to {max(dates)}",
         "totalDraws": total,
+        "latestId": draws[-1]["id"],
+        "latestDate": draws[-1]["date"],
         "main": main_counts,
         "bonus": bonus_counts,
     }

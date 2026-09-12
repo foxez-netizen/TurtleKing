@@ -1,0 +1,42 @@
+name: Update lottery draw pages
+
+on:
+  schedule:
+    # Twice a day (03:00 and 15:00 UTC) to catch draws across all 8 games'
+    # different schedules (Powerball/Mega Millions/SuperEnalotto draw
+    # several times a week; Lotto 6/45, UK Lotto, Loto 6, Australia
+    # Powerball weekly; EuroMillions twice weekly). Each underlying script
+    # only commits when something actually changed, so idle runs are cheap.
+    - cron: "0 3,15 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Refresh Korea Lotto 6/45
+        run: python3 data/scripts/update_kr645.py
+
+      - name: Refresh the other 7 world lottery games
+        run: python3 data/scripts/update_world.py
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ draws/ numbers/
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Auto-update: refresh lottery data and regenerate pages"
+            git push
+          fi

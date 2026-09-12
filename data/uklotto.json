@@ -2,6 +2,8 @@
   "source": "https://www.beatlottery.co.uk/lotto/draw-history/year/<year> (third-party UK Lotto draw archive)",
   "asOf": "draws from 2015-10-10 to 2026-09-09 (current 6/59 matrix only; pre-2015-10-10 draws under the old 6/49 matrix excluded)",
   "totalDraws": 1140,
+  "latestId": "2026-09-09",
+  "latestDate": "2026-09-09",
   "main": {
     "1": 108,
     "2": 109,

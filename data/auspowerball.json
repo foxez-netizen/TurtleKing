@@ -2,6 +2,8 @@
   "source": "https://www.lotto-8.com/Australia/listltoAPOW.asp (third-party Australia Powerball draw archive)",
   "asOf": "draws from 2018-04-19 to 2026-09-10",
   "totalDraws": 439,
+  "latestId": "2026-09-10",
+  "latestDate": "2026-09-10",
   "main": {
     "1": 85,
     "2": 88,
