@@ -1,5 +1,4 @@
 {
-  "liveServer.settings.root": "/",
-  "liveServer.settings.CustomBrowser": "chrome",
-  "liveServer.settings.donotShowInfoMsg": true
+  "livePreview.serverRoot": "",
+  "livePreview.openPreviewTarget": "Embedded Preview"
 }
