@@ -100,8 +100,7 @@ function populateQuickFlags() {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "flag-btn";
-    btn.textContent = config.name.split(" ")[0];
-    btn.title = config.name;
+    btn.textContent = config.name;
     btn.setAttribute("aria-label", config.name);
     btn.dataset.game = key;
     container.appendChild(btn);

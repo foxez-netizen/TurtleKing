@@ -200,46 +200,33 @@ footer a {
   transform: scale(0.98);
 }
 
-.generate-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.generate-row .generate-btn {
-  flex: 1;
-  width: auto;
-  min-width: 140px;
-}
-
 .quick-flags {
   display: flex;
-  gap: 4px;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .flag-btn {
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 10px;
   border: 1px solid var(--panel-border);
   background: var(--panel-bg);
-  font-size: 1.1rem;
+  color: var(--text);
+  font-size: 0.85rem;
+  white-space: nowrap;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: transform 0.1s ease, background 0.2s ease;
 }
 
 .flag-btn:hover {
-  transform: scale(1.12);
+  transform: scale(1.04);
 }
 
 .flag-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
 .results {
