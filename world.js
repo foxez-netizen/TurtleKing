@@ -109,13 +109,25 @@ function populateQuickFlags() {
 
 function populateCountSelect() {
   const select = document.getElementById("count");
+  const current = select.value || "5";
+  select.innerHTML = "";
   for (let n = 1; n <= 5; n++) {
     const option = document.createElement("option");
     option.value = n;
     option.textContent = APP_I18N.t("countOption", n);
-    if (n === 5) option.selected = true;
     select.appendChild(option);
   }
+  select.value = current;
+}
+
+function applyGameLanguage(key) {
+  const lang = APP_I18N.gameLang(key);
+  if (lang !== APP_I18N.lang) {
+    APP_I18N.setLang(lang);
+  }
+  document.documentElement.lang = APP_I18N.lang;
+  document.getElementById("quick-flags").setAttribute("aria-label", APP_I18N.t("quickFlagsLabel"));
+  populateCountSelect();
 }
 
 function updateGameInfo() {
@@ -170,24 +182,26 @@ function renderGames(config, games) {
   });
 }
 
-document.documentElement.lang = APP_I18N.lang;
+function selectGame(key) {
+  document.getElementById("game").value = key;
+  applyGameLanguage(key);
+  updateGameInfo();
+  document.getElementById("generate").click();
+}
 
 populateGameSelect();
-populateCountSelect();
 populateQuickFlags();
+applyGameLanguage(document.getElementById("game").value);
 updateGameInfo();
 
 document.getElementById("game").addEventListener("change", () => {
-  updateGameInfo();
-  document.getElementById("generate").click();
+  selectGame(document.getElementById("game").value);
 });
 
 document.getElementById("quick-flags").addEventListener("click", (e) => {
   const btn = e.target.closest(".flag-btn");
   if (!btn) return;
-  document.getElementById("game").value = btn.dataset.game;
-  updateGameInfo();
-  document.getElementById("generate").click();
+  selectGame(btn.dataset.game);
 });
 
 document.getElementById("generate").addEventListener("click", () => {

@@ -102,6 +102,18 @@ const REGION_GAME = {
 
 const LANG_GAME_FALLBACK = { ko: "kr645", ja: "loto6", it: "superenalotto", en: "powerball" };
 
+// Which UI language each game's home country actually speaks.
+const GAME_LANG = {
+  kr645: "ko",
+  powerball: "en",
+  megamillions: "en",
+  euromillions: "en",
+  uklotto: "en",
+  loto6: "ja",
+  auspowerball: "en",
+  superenalotto: "it",
+};
+
 function normalizeLang(code) {
   const c = (code || "").toLowerCase();
   return SUPPORTED_LANGS.includes(c) ? c : "en";
@@ -130,8 +142,6 @@ function t(key, ...args) {
   return typeof entry === "function" ? entry(...args) : entry;
 }
 
-window.APP_I18N = { lang: APP_I18N_DATA.lang, game: APP_I18N_DATA.game, t };
-
 function applyDataI18n() {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.textContent = t(el.getAttribute("data-i18n"));
@@ -140,6 +150,19 @@ function applyDataI18n() {
     el.placeholder = t(el.getAttribute("data-i18n-placeholder"));
   });
 }
+
+function setLang(lang) {
+  APP_I18N_DATA.lang = SUPPORTED_LANGS.includes(lang) ? lang : "en";
+  window.APP_I18N.lang = APP_I18N_DATA.lang;
+  document.documentElement.lang = APP_I18N_DATA.lang;
+  applyDataI18n();
+}
+
+function gameLang(gameKey) {
+  return GAME_LANG[gameKey] || "en";
+}
+
+window.APP_I18N = { lang: APP_I18N_DATA.lang, game: APP_I18N_DATA.game, t, setLang, gameLang };
 
 document.addEventListener("DOMContentLoaded", () => {
   applyDataI18n();

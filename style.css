@@ -218,10 +218,11 @@ footer a {
 }
 
 .quick-flags {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   flex-shrink: 0;
+  width: 260px;
 }
 
 .flag-btn {
@@ -252,11 +253,7 @@ footer a {
     flex-direction: column;
   }
   .quick-flags {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .flag-btn {
-    width: auto;
+    width: 100%;
   }
 }
 
