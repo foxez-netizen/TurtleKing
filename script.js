@@ -6,6 +6,12 @@ function ballColor(n) {
   return "green";
 }
 
+function isExcludeFormatValid(raw) {
+  const trimmed = raw.trim();
+  if (trimmed === "") return true;
+  return /^\d+(\s*,\s+\d+)*$/.test(trimmed);
+}
+
 function parseExclude(raw) {
   return new Set(
     raw
@@ -63,7 +69,7 @@ const excludeInput = document.getElementById("exclude");
 const excludeHint = document.getElementById("exclude-hint");
 
 function validateExcludeFormat() {
-  const invalid = /,\S/.test(excludeInput.value);
+  const invalid = !isExcludeFormatValid(excludeInput.value);
   excludeHint.hidden = !invalid;
   excludeInput.classList.toggle("exclude-invalid", invalid);
 }
