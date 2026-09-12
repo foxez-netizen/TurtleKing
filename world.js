@@ -4,35 +4,35 @@ const GAMES = {
     main: { count: 6, min: 1, max: 45 },
   },
   powerball: {
-    name: "🇺🇸 미국 파워볼 (Powerball)",
+    name: "🇺🇸 Powerball",
     main: { count: 5, min: 1, max: 69 },
     bonus: { label: "PB", count: 1, min: 1, max: 26 },
   },
   megamillions: {
-    name: "🇺🇸 미국 메가밀리언스 (Mega Millions)",
+    name: "🇺🇸 Mega Millions",
     main: { count: 5, min: 1, max: 70 },
     bonus: { label: "MB", count: 1, min: 1, max: 25 },
   },
   euromillions: {
-    name: "🇪🇺 유로밀리언스 (EuroMillions)",
+    name: "🇪🇺 EuroMillions",
     main: { count: 5, min: 1, max: 50 },
     bonus: { label: "★", count: 2, min: 1, max: 12 },
   },
   uklotto: {
-    name: "🇬🇧 영국 로또 (UK Lotto)",
+    name: "🇬🇧 UK Lotto",
     main: { count: 6, min: 1, max: 59 },
   },
   loto6: {
-    name: "🇯🇵 일본 로또6 (Loto 6)",
+    name: "🇯🇵 ロト6",
     main: { count: 6, min: 1, max: 43 },
   },
   auspowerball: {
-    name: "🇦🇺 호주 파워볼",
+    name: "🇦🇺 Powerball (Australia)",
     main: { count: 7, min: 1, max: 35 },
     bonus: { label: "PB", count: 1, min: 1, max: 20 },
   },
   superenalotto: {
-    name: "🇮🇹 이탈리아 슈퍼에날로토",
+    name: "🇮🇹 SuperEnalotto",
     main: { count: 6, min: 1, max: 90 },
   },
 };
