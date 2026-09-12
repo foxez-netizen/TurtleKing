@@ -61,7 +61,7 @@ function pickUnique(count, min, max, excluded) {
     if (!excluded || !excluded.has(i)) pool.push(i);
   }
   if (pool.length < count) {
-    throw new Error("제외한 번호가 너무 많아 필요한 개수를 뽑을 수 없어요.");
+    throw new Error(APP_I18N.t("excludeError"));
   }
   const picked = [];
   for (let i = 0; i < count; i++) {
@@ -88,15 +88,29 @@ function populateGameSelect() {
     option.textContent = config.name;
     select.appendChild(option);
   });
+  if (GAMES[APP_I18N.game]) {
+    select.value = APP_I18N.game;
+  }
+}
+
+function populateCountSelect() {
+  const select = document.getElementById("count");
+  for (let n = 1; n <= 5; n++) {
+    const option = document.createElement("option");
+    option.value = n;
+    option.textContent = APP_I18N.t("countOption", n);
+    if (n === 5) option.selected = true;
+    select.appendChild(option);
+  }
 }
 
 function updateGameInfo() {
   const key = document.getElementById("game").value;
   const config = GAMES[key];
   const info = document.getElementById("game-info");
-  let text = `메인 번호 ${config.main.min}~${config.main.max} 중 ${config.main.count}개`;
+  let text = APP_I18N.t("mainInfo", config.main.min, config.main.max, config.main.count);
   if (config.bonus) {
-    text += ` + 보너스(${config.bonus.label}) ${config.bonus.min}~${config.bonus.max} 중 ${config.bonus.count}개`;
+    text += APP_I18N.t("bonusInfo", config.bonus.label, config.bonus.min, config.bonus.max, config.bonus.count);
   }
   info.textContent = text;
 }
@@ -111,7 +125,7 @@ function renderGames(config, games) {
 
     const label = document.createElement("div");
     label.className = "game-label";
-    label.textContent = `${i + 1}게임`;
+    label.textContent = APP_I18N.t("gameRowLabel", i + 1);
     row.appendChild(label);
 
     const balls = document.createElement("div");
@@ -142,7 +156,10 @@ function renderGames(config, games) {
   });
 }
 
+document.documentElement.lang = APP_I18N.lang;
+
 populateGameSelect();
+populateCountSelect();
 updateGameInfo();
 
 document.getElementById("game").addEventListener("change", () => {
