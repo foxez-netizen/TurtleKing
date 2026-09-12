@@ -135,8 +135,8 @@ function updateGameInfo() {
   const numbersLink = document.getElementById("game-numbers-link");
   if (drawsLink && numbersLink) {
     const base = key === "kr645" ? "" : `${key}/`;
-    drawsLink.href = `draws/${base}index.html`;
-    numbersLink.href = `numbers/${base}index.html`;
+    drawsLink.href = `/draws/${base}index.html`;
+    numbersLink.href = `/numbers/${base}index.html`;
     drawsLink.textContent = APP_I18N.t("seoDrawsLink");
     numbersLink.textContent = APP_I18N.t("seoNumbersLink");
   }

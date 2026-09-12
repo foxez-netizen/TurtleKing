@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Lottery Number Generator | Powerball, EuroMillions, Loto 6 Odds – LottoPick</title>
+<meta name="description" content="Generate random numbers for Powerball, Mega Millions, EuroMillions, UK Lotto, Loto 6, Australia Powerball, SuperEnalotto and Korea Lotto 6/45. Check jackpot odds and historical number frequency stats.">
+<link rel="canonical" href="https://lottopick.org/en/world.html">
+<link rel="alternate" hreflang="ko" href="https://lottopick.org/ko/world.html">
+<link rel="alternate" hreflang="en" href="https://lottopick.org/en/world.html">
+<link rel="alternate" hreflang="ja" href="https://lottopick.org/ja/world.html">
+<link rel="alternate" hreflang="it" href="https://lottopick.org/it/world.html">
+<link rel="alternate" hreflang="x-default" href="https://lottopick.org/world.html">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176623685813595"
+     crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "LottoPick World Lottery Number Generator",
+  "url": "https://lottopick.org/en/world.html",
+  "inLanguage": "en",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Random number generator for Powerball, Mega Millions, EuroMillions, UK Lotto, Loto 6, Australia Powerball, SuperEnalotto and Korea Lotto 6/45, with historical number frequency stats."
+}
+</script>
+</head>
+<body>
+  <div class="wrap wrap-world">
+    <header>
+      <button id="theme-toggle" class="theme-toggle" aria-label="다크/화이트 모드 전환" title="다크/화이트 모드 전환">
+        <span id="theme-toggle-icon">🌙</span>
+        <span id="theme-toggle-label">Darkmode</span>
+      </button>
+      <h1 data-i18n="worldTitle">🌍 세계 로또 번호 생성기</h1>
+      <p class="subtitle" data-i18n="worldSubtitle">세계 각국의 복권 규칙에 맞춰 번호를 무작위로 뽑아드려요</p>
+    </header>
+
+    <div class="seo-banner">
+      <a id="game-draws-link" href="/draws/index.html">📅 회차별 당첨번호</a>
+      <a id="game-numbers-link" href="/numbers/index.html">🔢 번호별 출현 횟수</a>
+    </div>
+
+    <div class="main-row">
+      <section class="controls">
+        <div class="control-row">
+          <label for="game" data-i18n="gameLabel">국가 / 게임</label>
+          <select id="game"></select>
+        </div>
+
+        <div class="control-row">
+          <label for="count" data-i18n="countLabel">생성 게임 수</label>
+          <select id="count"></select>
+        </div>
+
+        <div class="control-row">
+          <label for="exclude" data-i18n="excludeLabel">제외할 번호 (선택)</label>
+          <input type="text" id="exclude" data-i18n-placeholder="excludePlaceholder" placeholder="예: 1, 7, 23">
+        </div>
+        <p id="exclude-hint" class="exclude-hint" data-i18n="excludeFormatHint" hidden>쉼표(,) 뒤에 띄어쓰기를 넣어주세요. 예: 1, 7, 23</p>
+
+        <p id="game-info" class="game-info"></p>
+
+        <button id="generate" class="generate-btn" data-i18n="generateBtn">번호 생성하기</button>
+      </section>
+
+      <div id="quick-flags" class="quick-flags"></div>
+    </div>
+
+    <section id="results" class="results"></section>
+
+    <section class="info">
+      <h2 data-i18n="infoTitle">번호 생성기 이용 안내</h2>
+      <p data-i18n="infoIntro">이 도구는 선택한 국가의 복권 규칙에 맞춰 번호를 그 자리에서 무작위로 뽑아드리는 재미용 생성기입니다. 실제 복권 구매나 당첨을 대행하지 않으며, 생성된 번호는 어떠한 경우에도 당첨을 보장하지 않습니다.</p>
+
+      <h3 data-i18n="infoRandomTitle">번호는 어떻게 생성되나요?</h3>
+      <p data-i18n="infoRandom">매 회차 추첨은 이전 결과와 통계적으로 독립적인 사건입니다. 과거에 자주 나온 번호라고 해서 다음 추첨에서 더 잘 나올 확률이 높아지는 것은 아니에요.</p>
+
+      <h3 data-i18n="infoOddsTitle">당첨 확률</h3>
+      <p id="info-odds"></p>
+      <p data-i18n="infoStatsNote">번호별 실제 과거 당첨 빈도는 이 사이트의 통계 페이지에서 확인할 수 있어요.</p>
+
+      <p class="disclaimer" data-i18n="infoDisclaimer">본 서비스는 성인 대상 오락용 도구이며, 과도한 복권 구매를 권장하지 않습니다.</p>
+    </section>
+
+    <footer>
+      <p data-i18n="footerNote">재미로 즐기는 번호 생성기입니다. 당첨을 보장하지 않아요 🍀</p>
+      <nav class="site-nav">
+        <a href="/stats.html" data-i18n="statsLink">📊 번호별 당첨 통계 보기</a>
+        <a href="/index.html" data-i18n="backLink">🇰🇷 한국 로또 생성기로 돌아가기</a>
+        <a href="/about.html" data-i18n="aboutLink">ℹ️ 사이트 소개</a>
+        <a href="/privacy.html" data-i18n="privacyLink">🔒 개인정보처리방침</a>
+        <a href="/partnership.html" data-i18n="partnershipLink">제휴 문의하기 →</a>
+      </nav>
+    </footer>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>window.FORCE_LANG = "en";</script>
+<script src="/i18n.js"></script>
+<script src="/games.js"></script>
+<script src="/theme.js"></script>
+<script src="/celebrate.js"></script>
+<script src="/world.js"></script>
+</body>
+</html>

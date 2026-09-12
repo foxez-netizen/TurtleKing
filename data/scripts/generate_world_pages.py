@@ -20,6 +20,7 @@ import json
 import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+SITE_URL = "https://lottopick.org"
 ADSENSE_SCRIPT = (
     '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
     '?client=ca-pub-2176623685813595" crossorigin="anonymous"></script>'
@@ -39,8 +40,8 @@ STR = {
     "en": {
         "darkToggle": "Toggle dark/light mode",
         "drawnOn": lambda date: f"Drawn on {date}",
-        "drawTitleId": lambda name, id_: f"{name} Draw #{id_} Winning Numbers | World Lottery Number Generator",
-        "drawTitleDate": lambda name, date: f"{name} Winning Numbers for {date} | World Lottery Number Generator",
+        "drawTitleId": lambda name, id_: f"{name} Draw #{id_} Winning Numbers | LottoPick",
+        "drawTitleDate": lambda name, date: f"{name} Winning Numbers for {date} | LottoPick",
         "drawDescId": lambda name, id_, date, nums, bonus: f"{name} draw #{id_} ({date}) winning numbers: {nums}{bonus}.",
         "drawDescDate": lambda name, date, nums, bonus: f"{name} winning numbers for {date}: {nums}{bonus}.",
         "drawH1Id": lambda name, id_: f"{name} Draw #{id_}",
@@ -50,17 +51,17 @@ STR = {
         "nextDraw": "Next draw →",
         "recentHeading": "Recent Appearances",
         "numberDisclaimer": "Past frequency is for reference only and does not predict future draws — each drawing is a statistically independent event.",
-        "numberTitle": lambda name, n: f"{name} Number {n} — Appearance Count | World Lottery Number Generator",
+        "numberTitle": lambda name, n: f"{name} Number {n} — Appearance Count | LottoPick",
         "numberDesc": lambda name, n, count, total, pct: f"{name} number {n} has appeared {count} of {total} draws so far ({pct}%). See its recent draw history.",
         "numberH1": lambda name, n: f"{name} Number {n}",
         "numberSubtitle": lambda count, total, pct: f"Appeared {count} of {total} draws ({pct}%)",
         "allNumbers": "All numbers",
         "prevNumber": "← Previous number",
         "nextNumber": "Next number →",
-        "drawsIndexTitle": lambda name: f"{name} — Full Draw Archive | World Lottery Number Generator",
+        "drawsIndexTitle": lambda name: f"{name} — Full Draw Archive | LottoPick",
         "drawsIndexDesc": lambda name, latest: f"Every {name} draw result, grouped by year, from the earliest on record to draw {latest}.",
         "drawsIndexH1": lambda name: f"{name} — Draw Archive",
-        "numbersIndexTitle": lambda name: f"{name} — Number Frequency | World Lottery Number Generator",
+        "numbersIndexTitle": lambda name: f"{name} — Number Frequency | LottoPick",
         "numbersIndexDesc": lambda name: f"How many times each {name} number has been drawn — pick a number to see its full history.",
         "numbersIndexH1": lambda name: f"{name} — Number Frequency",
         "backToGenerator": "🌍 Back to World Lottery Generator",
@@ -72,8 +73,8 @@ STR = {
     "ja": {
         "darkToggle": "ダークモード切替",
         "drawnOn": lambda date: f"{date} 抽せん",
-        "drawTitleId": lambda name, id_: f"{name} 第{id_}回 当せん番号 | 世界の宝くじ番号ジェネレーター",
-        "drawTitleDate": lambda name, date: f"{name} {date} 当せん番号 | 世界の宝くじ番号ジェネレーター",
+        "drawTitleId": lambda name, id_: f"{name} 第{id_}回 当せん番号 | LottoPick",
+        "drawTitleDate": lambda name, date: f"{name} {date} 当せん番号 | LottoPick",
         "drawDescId": lambda name, id_, date, nums, bonus: f"{name} 第{id_}回（{date}）の当せん番号は {nums}{bonus} です。",
         "drawDescDate": lambda name, date, nums, bonus: f"{name} {date} の当せん番号は {nums}{bonus} です。",
         "drawH1Id": lambda name, id_: f"{name} 第{id_}回",
@@ -83,17 +84,17 @@ STR = {
         "nextDraw": "次回 →",
         "recentHeading": "最近の出現回",
         "numberDisclaimer": "過去の出現頻度は参考情報であり、次回の抽せん結果を予測するものではありません。各回の抽せんは独立した事象です。",
-        "numberTitle": lambda name, n: f"{name} {n}番 出現回数 | 世界の宝くじ番号ジェネレーター",
+        "numberTitle": lambda name, n: f"{name} {n}番 出現回数 | LottoPick",
         "numberDesc": lambda name, n, count, total, pct: f"{name} の{n}番はこれまで{total}回中{count}回出現しています（{pct}%）。最近の出現履歴を確認できます。",
         "numberH1": lambda name, n: f"{name} {n}番",
         "numberSubtitle": lambda count, total, pct: f"全{total}回中{count}回出現（{pct}%）",
         "allNumbers": "全番号一覧",
         "prevNumber": "← 前の番号",
         "nextNumber": "次の番号 →",
-        "drawsIndexTitle": lambda name: f"{name} 全回アーカイブ | 世界の宝くじ番号ジェネレーター",
+        "drawsIndexTitle": lambda name: f"{name} 全回アーカイブ | LottoPick",
         "drawsIndexDesc": lambda name, latest: f"{name} の全抽せん結果を年別にまとめました（第{latest}回まで）。",
         "drawsIndexH1": lambda name: f"{name} 抽せんアーカイブ",
-        "numbersIndexTitle": lambda name: f"{name} 番号別出現回数 | 世界の宝くじ番号ジェネレーター",
+        "numbersIndexTitle": lambda name: f"{name} 番号別出現回数 | LottoPick",
         "numbersIndexDesc": lambda name: f"{name} の各番号がこれまで何回出現したか確認できます。",
         "numbersIndexH1": lambda name: f"{name} 番号別出現回数",
         "backToGenerator": "🌍 世界の宝くじジェネレーターに戻る",
@@ -105,8 +106,8 @@ STR = {
     "it": {
         "darkToggle": "Attiva/disattiva la modalità scura",
         "drawnOn": lambda date: f"Estrazione del {date}",
-        "drawTitleId": lambda name, id_: f"{name} Estrazione #{id_} - Numeri Vincenti | Generatore Lotterie Mondiali",
-        "drawTitleDate": lambda name, date: f"{name} - Numeri Vincenti del {date} | Generatore Lotterie Mondiali",
+        "drawTitleId": lambda name, id_: f"{name} Estrazione #{id_} - Numeri Vincenti | LottoPick",
+        "drawTitleDate": lambda name, date: f"{name} - Numeri Vincenti del {date} | LottoPick",
         "drawDescId": lambda name, id_, date, nums, bonus: f"{name} estrazione #{id_} ({date}): numeri vincenti {nums}{bonus}.",
         "drawDescDate": lambda name, date, nums, bonus: f"{name} - numeri vincenti del {date}: {nums}{bonus}.",
         "drawH1Id": lambda name, id_: f"{name} Estrazione #{id_}",
@@ -116,20 +117,20 @@ STR = {
         "nextDraw": "Estrazione successiva →",
         "recentHeading": "Estrazioni recenti",
         "numberDisclaimer": "La frequenza passata è solo a titolo informativo e non predice le estrazioni future: ogni estrazione è un evento statisticamente indipendente.",
-        "numberTitle": lambda name, n: f"{name} Numero {n} - Frequenza | Generatore Lotterie Mondiali",
+        "numberTitle": lambda name, n: f"{name} Numero {n} - Frequenza | LottoPick",
         "numberDesc": lambda name, n, count, total, pct: f"Il numero {n} di {name} è uscito {count} volte su {total} estrazioni ({pct}%). Consulta la cronologia recente.",
         "numberH1": lambda name, n: f"{name} Numero {n}",
         "numberSubtitle": lambda count, total, pct: f"Uscito {count} volte su {total} estrazioni ({pct}%)",
         "allNumbers": "Tutti i numeri",
         "prevNumber": "← Numero precedente",
         "nextNumber": "Numero successivo →",
-        "drawsIndexTitle": lambda name: f"{name} - Archivio Estrazioni | Generatore Lotterie Mondiali",
+        "drawsIndexTitle": lambda name: f"{name} - Archivio Estrazioni | LottoPick",
         "drawsIndexDesc": lambda name, latest: f"Tutte le estrazioni di {name}, raggruppate per anno, fino al {latest}.",
         "drawsIndexH1": lambda name: f"{name} - Archivio Estrazioni",
-        "numbersIndexTitle": lambda name: f"{name} - Frequenza Numeri | Generatore Lotterie Mondiali",
+        "numbersIndexTitle": lambda name: f"{name} - Frequenza Numeri | LottoPick",
         "numbersIndexDesc": lambda name: f"Quante volte è uscito ogni numero di {name}: scegline uno per la cronologia completa.",
         "numbersIndexH1": lambda name: f"{name} - Frequenza Numeri",
-        "backToGenerator": "🌍 Torna al Generatore Lotterie Mondiali",
+        "backToGenerator": "🌍 Torna al generatore di lotterie mondiali",
         "backToNumbers": lambda name: f"🔢 Frequenza Numeri {name}",
         "backToDraws": lambda name: f"📅 Archivio Estrazioni {name}",
         "backToStats": "📊 Statistiche Numeri",
@@ -151,13 +152,14 @@ def band_class(n, max_n):
     return "green"
 
 
-def page_shell(key, meta, lang, title, description, body):
+def page_shell(key, meta, lang, title, description, body, canonical_path):
     s = STR[lang]
+    canonical = f"{SITE_URL}{canonical_path}"
     footer_nav = "\n        ".join([
-        f'<a href="../../world.html?game={key}&amp;lang={lang}">{s["backToGenerator"]}</a>',
-        f'<a href="../../numbers/{key}/index.html">{s["backToNumbers"](meta["name"])}</a>',
-        f'<a href="../../draws/{key}/index.html">{s["backToDraws"](meta["name"])}</a>',
-        f'<a href="../../stats.html">{s["backToStats"]}</a>',
+        f'<a href="/world.html?game={key}&amp;lang={lang}">{s["backToGenerator"]}</a>',
+        f'<a href="/numbers/{key}/index.html">{s["backToNumbers"](meta["name"])}</a>',
+        f'<a href="/draws/{key}/index.html">{s["backToDraws"](meta["name"])}</a>',
+        f'<a href="/stats.html">{s["backToStats"]}</a>',
     ])
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -166,7 +168,8 @@ def page_shell(key, meta, lang, title, description, body):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<link rel="stylesheet" href="../../style.css">
+<link rel="canonical" href="{canonical}">
+<link rel="stylesheet" href="/style.css">
 {ADSENSE_SCRIPT}
 </head>
 <body>
@@ -183,7 +186,7 @@ def page_shell(key, meta, lang, title, description, body):
       </nav>
     </footer>
   </div>
-<script src="../../theme.js"></script>
+<script src="/theme.js"></script>
 </body>
 </html>
 """
@@ -221,9 +224,9 @@ def render_draw_page(key, meta, lang, draw, prev_id, next_id):
         h1 = s["drawH1Date"](name, draw["date"])
 
     nav_bits = []
-    nav_bits.append(f'<a href="{prev_id}.html">{s["prevDraw"]}</a>' if prev_id is not None else "<span></span>")
-    nav_bits.append(f'<a href="index.html">{s["allDraws"]}</a>')
-    nav_bits.append(f'<a href="{next_id}.html">{s["nextDraw"]}</a>' if next_id is not None else "<span></span>")
+    nav_bits.append(f'<a href="/draws/{key}/{prev_id}.html">{s["prevDraw"]}</a>' if prev_id is not None else "<span></span>")
+    nav_bits.append(f'<a href="/draws/{key}/index.html">{s["allDraws"]}</a>')
+    nav_bits.append(f'<a href="/draws/{key}/{next_id}.html">{s["nextDraw"]}</a>' if next_id is not None else "<span></span>")
 
     body = f"""      <h1>{meta['flag']} {h1}</h1>
       <p class="subtitle">{s['drawnOn'](draw['date'])}</p>
@@ -244,7 +247,7 @@ def render_draw_page(key, meta, lang, draw, prev_id, next_id):
       {nav_bits[2]}
     </nav>
 """
-    return page_shell(key, meta, lang, title, description, body)
+    return page_shell(key, meta, lang, title, description, body, f"/draws/{key}/{draw['id']}.html")
 
 
 def render_draws_index(key, meta, lang, draws):
@@ -257,7 +260,7 @@ def render_draws_index(key, meta, lang, draws):
     sections = []
     for year in sorted(by_year.keys(), reverse=True):
         items = sorted(by_year[year], key=lambda d: d["date"], reverse=True)
-        links = " ".join(f'<a href="{d["id"]}.html">{d["id"] if meta["has_id"] else d["date"]}</a>' for d in items)
+        links = " ".join(f'<a href="/draws/{key}/{d["id"]}.html">{d["id"] if meta["has_id"] else d["date"]}</a>' for d in items)
         sections.append(f'<h3>{year}</h3>\n      <div class="draw-year-links">{links}</div>')
     sections_html = "\n      ".join(sections)
 
@@ -272,7 +275,7 @@ def render_draws_index(key, meta, lang, draws):
       {sections_html}
     </section>
 """
-    return page_shell(key, meta, lang, title, description, body)
+    return page_shell(key, meta, lang, title, description, body, f"/draws/{key}/index.html")
 
 
 def render_number_page(key, meta, lang, num, stats, recent_draws):
@@ -283,15 +286,15 @@ def render_number_page(key, meta, lang, num, stats, recent_draws):
     pct = round(count / total * 100, 1) if total else 0.0
 
     recent_html = "\n        ".join(
-        f'<li><a href="../../draws/{key}/{d["id"]}.html">{s["drawLabel"](d["id"], d["date"], meta["has_id"])}</a></li>'
+        f'<li><a href="/draws/{key}/{d["id"]}.html">{s["drawLabel"](d["id"], d["date"], meta["has_id"])}</a></li>'
         for d in recent_draws
     )
 
     prev_n, next_n = num - 1, num + 1
     nav_bits = []
-    nav_bits.append(f'<a href="{prev_n}.html">{s["prevNumber"]}</a>' if prev_n >= 1 else "<span></span>")
-    nav_bits.append(f'<a href="index.html">{s["allNumbers"]}</a>')
-    nav_bits.append(f'<a href="{next_n}.html">{s["nextNumber"]}</a>' if next_n <= meta["main_max"] else "<span></span>")
+    nav_bits.append(f'<a href="/numbers/{key}/{prev_n}.html">{s["prevNumber"]}</a>' if prev_n >= 1 else "<span></span>")
+    nav_bits.append(f'<a href="/numbers/{key}/index.html">{s["allNumbers"]}</a>')
+    nav_bits.append(f'<a href="/numbers/{key}/{next_n}.html">{s["nextNumber"]}</a>' if next_n <= meta["main_max"] else "<span></span>")
 
     title = s["numberTitle"](name, num)
     description = s["numberDesc"](name, num, count, total, pct)
@@ -319,14 +322,14 @@ def render_number_page(key, meta, lang, num, stats, recent_draws):
       {nav_bits[2]}
     </nav>
 """
-    return page_shell(key, meta, lang, title, description, body)
+    return page_shell(key, meta, lang, title, description, body, f"/numbers/{key}/{num}.html")
 
 
 def render_numbers_index(key, meta, lang):
     s = STR[lang]
     name = meta["name"]
     cells = "".join(
-        f'<a class="ball-wrap number-index-link" href="{n}.html"><div class="ball {band_class(n, meta["main_max"])}">{n}</div></a>'
+        f'<a class="ball-wrap number-index-link" href="/numbers/{key}/{n}.html"><div class="ball {band_class(n, meta["main_max"])}">{n}</div></a>'
         for n in range(1, meta["main_max"] + 1)
     )
     title = s["numbersIndexTitle"](name)
@@ -340,7 +343,7 @@ def render_numbers_index(key, meta, lang):
       </div>
     </section>
 """
-    return page_shell(key, meta, lang, title, description, body)
+    return page_shell(key, meta, lang, title, description, body, f"/numbers/{key}/index.html")
 
 
 

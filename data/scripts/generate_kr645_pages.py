@@ -20,6 +20,9 @@ STATS_JSON = f"{ROOT}/data/kr645.json"
 DRAWS_DIR = f"{ROOT}/draws"
 NUMBERS_DIR = f"{ROOT}/numbers"
 
+SITE_URL = "https://lottopick.org"
+BRAND = "LottoPick"
+
 RANK_LABELS = ["1등", "2등", "3등", "4등", "5등"]
 
 ADSENSE_SCRIPT = (
@@ -50,8 +53,8 @@ def fmt_won(n):
     return f"{n:,}원"
 
 
-def page_shell(title, description, body, depth=1):
-    prefix = "../" * depth
+def page_shell(title, description, body, canonical_path):
+    canonical = f"{SITE_URL}{canonical_path}"
     return f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -59,7 +62,8 @@ def page_shell(title, description, body, depth=1):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<link rel="stylesheet" href="{prefix}style.css">
+<link rel="canonical" href="{canonical}">
+<link rel="stylesheet" href="/style.css">
 {ADSENSE_SCRIPT}
 </head>
 <body>
@@ -72,14 +76,14 @@ def page_shell(title, description, body, depth=1):
 {body}
     <footer>
       <nav class="site-nav">
-        <a href="{prefix}index.html">🇰🇷 로또 번호 생성기로 돌아가기</a>
-        <a href="{prefix}numbers/index.html">🔢 번호별 통계</a>
-        <a href="{prefix}draws/index.html">📅 회차별 당첨번호</a>
-        <a href="{prefix}stats.html">📊 번호별 당첨 통계</a>
+        <a href="/index.html">🇰🇷 로또 번호 생성기로 돌아가기</a>
+        <a href="/numbers/index.html">🔢 번호별 통계</a>
+        <a href="/draws/index.html">📅 회차별 당첨번호</a>
+        <a href="/stats.html">📊 번호별 당첨 통계</a>
       </nav>
     </footer>
   </div>
-<script src="{prefix}theme.js"></script>
+<script src="/theme.js"></script>
 </body>
 </html>
 """
@@ -107,17 +111,17 @@ def render_draw_page(draw, prev_no, next_no, latest_no):
 
     nav_links = []
     if prev_no:
-        nav_links.append(f'<a href="{prev_no}.html">← {prev_no}회</a>')
+        nav_links.append(f'<a href="/draws/{prev_no}.html">← {prev_no}회</a>')
     else:
         nav_links.append("<span></span>")
-    nav_links.append('<a href="index.html">전체 회차 목록</a>')
+    nav_links.append('<a href="/draws/index.html">전체 회차 목록</a>')
     if next_no and next_no <= latest_no:
-        nav_links.append(f'<a href="{next_no}.html">{next_no}회 →</a>')
+        nav_links.append(f'<a href="/draws/{next_no}.html">{next_no}회 →</a>')
     else:
         nav_links.append("<span></span>")
 
     numbers_str = ", ".join(str(x) for x in draw["numbers"])
-    title = f"로또 {n}회 당첨번호 | 로또 번호 생성기"
+    title = f"로또 {n}회 당첨번호 | {BRAND}"
     description = (
         f"로또 {n}회({draw['date']}) 당첨번호는 {numbers_str} + 보너스 {draw['bonus_no']}입니다. "
         f"등수별 당첨금과 당첨자 수, 총 판매금액을 확인하세요."
@@ -153,7 +157,7 @@ def render_draw_page(draw, prev_no, next_no, latest_no):
       {nav_links[2]}
     </nav>
 """
-    return page_shell(title, description, body, depth=1)
+    return page_shell(title, description, body, f"/draws/{n}.html")
 
 
 def render_draws_index(draws):
@@ -165,12 +169,12 @@ def render_draws_index(draws):
     sections = []
     for year in sorted(by_year.keys(), reverse=True):
         items = sorted(by_year[year], key=lambda d: d["draw_no"], reverse=True)
-        links = " ".join(f'<a href="{d["draw_no"]}.html">{d["draw_no"]}회</a>' for d in items)
+        links = " ".join(f'<a href="/draws/{d["draw_no"]}.html">{d["draw_no"]}회</a>' for d in items)
         sections.append(f'<h3>{year}년</h3>\n      <div class="draw-year-links">{links}</div>')
     sections_html = "\n      ".join(sections)
 
     latest = max(draws, key=lambda d: d["draw_no"])
-    title = "로또 회차별 당첨번호 전체 목록 | 로또 번호 생성기"
+    title = f"로또 회차별 당첨번호 전체 목록 | {BRAND}"
     description = f"로또 1회부터 {latest['draw_no']}회까지 전체 회차의 당첨번호를 연도별로 모아놓은 목록입니다."
     body = f"""      <h1>📅 회차별 당첨번호</h1>
       <p class="subtitle">1회부터 {latest['draw_no']}회까지, 연도별로 모아봤어요</p>
@@ -180,7 +184,7 @@ def render_draws_index(draws):
       {sections_html}
     </section>
 """
-    return page_shell(title, description, body, depth=1)
+    return page_shell(title, description, body, "/draws/index.html")
 
 
 def render_number_page(num, stats, recent_draws, latest_no):
@@ -189,18 +193,18 @@ def render_number_page(num, stats, recent_draws, latest_no):
     pct = round(count / total * 100, 1) if total else 0.0
 
     recent_html = "\n        ".join(
-        f'<li><a href="../draws/{d["draw_no"]}.html">{d["draw_no"]}회 ({d["date"]})</a></li>'
+        f'<li><a href="/draws/{d["draw_no"]}.html">{d["draw_no"]}회 ({d["date"]})</a></li>'
         for d in recent_draws
     )
 
     prev_n = num - 1
     next_n = num + 1
     nav_links = []
-    nav_links.append(f'<a href="{prev_n}.html">← {prev_n}번</a>' if prev_n >= 1 else "<span></span>")
-    nav_links.append('<a href="index.html">전체 번호 목록</a>')
-    nav_links.append(f'<a href="{next_n}.html">{next_n}번 →</a>' if next_n <= 45 else "<span></span>")
+    nav_links.append(f'<a href="/numbers/{prev_n}.html">← {prev_n}번</a>' if prev_n >= 1 else "<span></span>")
+    nav_links.append('<a href="/numbers/index.html">전체 번호 목록</a>')
+    nav_links.append(f'<a href="/numbers/{next_n}.html">{next_n}번 →</a>' if next_n <= 45 else "<span></span>")
 
-    title = f"로또 {num}번 출현 횟수 및 최근 당첨 이력 | 로또 번호 생성기"
+    title = f"로또 {num}번 출현 횟수 및 최근 당첨 이력 | {BRAND}"
     description = f"로또 {num}번은 지금까지(1~{latest_no}회) 총 {count}회 나왔습니다({pct}%). 최근 출현 회차와 이력을 확인하세요."
     body = f"""      <h1>🔢 로또 {num}번 출현 횟수</h1>
       <p class="subtitle">역대 {total}회차 중 {count}회 출현 ({pct}%)</p>
@@ -226,15 +230,15 @@ def render_number_page(num, stats, recent_draws, latest_no):
       {nav_links[2]}
     </nav>
 """
-    return page_shell(title, description, body, depth=1)
+    return page_shell(title, description, body, f"/numbers/{num}.html")
 
 
 def render_numbers_index():
     cells = "".join(
-        f'<a class="ball-wrap number-index-link" href="{n}.html"><div class="ball {band_class(n)}">{n}</div></a>'
+        f'<a class="ball-wrap number-index-link" href="/numbers/{n}.html"><div class="ball {band_class(n)}">{n}</div></a>'
         for n in range(1, 46)
     )
-    title = "로또 번호별 출현 횟수 전체 목록 | 로또 번호 생성기"
+    title = f"로또 번호별 출현 횟수 전체 목록 | {BRAND}"
     description = "로또 1번부터 45번까지 각 번호의 역대 출현 횟수와 최근 당첨 이력 페이지 모음입니다."
     body = f"""      <h1>🔢 번호별 출현 횟수</h1>
       <p class="subtitle">번호를 눌러 출현 횟수와 최근 당첨 이력을 확인하세요</p>
@@ -246,7 +250,7 @@ def render_numbers_index():
       </div>
     </section>
 """
-    return page_shell(title, description, body, depth=1)
+    return page_shell(title, description, body, "/numbers/index.html")
 
 
 def main():

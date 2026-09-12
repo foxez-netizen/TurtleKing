@@ -57,7 +57,7 @@ const GAME_STATS_CACHE = {};
 
 function loadGameStats(key) {
   if (GAME_STATS_CACHE[key]) return GAME_STATS_CACHE[key];
-  GAME_STATS_CACHE[key] = fetch(`data/${key}.json`)
+  GAME_STATS_CACHE[key] = fetch(`/data/${key}.json`)
     .then((res) => (res.ok ? res.json() : null))
     .catch(() => null);
   return GAME_STATS_CACHE[key];

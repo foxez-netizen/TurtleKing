@@ -198,7 +198,13 @@ function detectAppI18n() {
   const region = rawRegion ? rawRegion.toUpperCase() : null;
 
   const paramLang = params.get("lang");
-  const lang = paramLang && SUPPORTED_LANGS.includes(paramLang) ? paramLang : normalizeLang(rawLang);
+  const forcedLang = typeof window !== "undefined" ? window.FORCE_LANG : null;
+  const lang =
+    forcedLang && SUPPORTED_LANGS.includes(forcedLang)
+      ? forcedLang
+      : paramLang && SUPPORTED_LANGS.includes(paramLang)
+      ? paramLang
+      : normalizeLang(rawLang);
 
   const paramGame = params.get("game");
   const game = paramGame || (region && REGION_GAME[region]) || LANG_GAME_FALLBACK[lang] || "powerball";
@@ -241,6 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const worldLink = document.getElementById("world-link");
   if (worldLink) {
-    worldLink.href = `world.html?game=${APP_I18N_DATA.game}&lang=${APP_I18N_DATA.lang}`;
+    worldLink.href = `/world.html?game=${APP_I18N_DATA.game}&lang=${APP_I18N_DATA.lang}`;
   }
 });

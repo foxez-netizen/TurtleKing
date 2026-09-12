@@ -4,7 +4,7 @@ function populateWorldQuickLinks() {
   Object.entries(GAMES).forEach(([key, config]) => {
     const link = document.createElement("a");
     link.className = "flag-btn";
-    link.href = `world.html?game=${key}&lang=${APP_I18N.gameLang(key)}`;
+    link.href = `/world.html?game=${key}&lang=${APP_I18N.gameLang(key)}`;
     link.setAttribute("aria-label", `${config.country} ${config.name}`);
 
     const icon = document.createElement("span");
@@ -77,7 +77,7 @@ const KR645_STATS_READY = loadGameStats("kr645").then((stats) => {
   KR645_STATS = stats;
   const latestLink = document.getElementById("latest-draw-link");
   if (latestLink && stats && stats.latestDrawNo) {
-    latestLink.href = `draws/${stats.latestDrawNo}.html`;
+    latestLink.href = `/draws/${stats.latestDrawNo}.html`;
     latestLink.textContent = `📅 로또 ${stats.latestDrawNo}회 당첨번호 보기`;
   }
 });
