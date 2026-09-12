@@ -1,4 +1,5 @@
 {
   "livePreview.serverRoot": "",
-  "livePreview.openPreviewTarget": "Embedded Preview"
+  "livePreview.openPreviewTarget": "Embedded Preview",
+  "liveServer.settings.port": 5501
 }
