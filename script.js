@@ -59,6 +59,17 @@ function renderGames(games) {
   });
 }
 
+const excludeInput = document.getElementById("exclude");
+const excludeHint = document.getElementById("exclude-hint");
+
+function validateExcludeFormat() {
+  const invalid = /,\S/.test(excludeInput.value);
+  excludeHint.hidden = !invalid;
+  excludeInput.classList.toggle("exclude-invalid", invalid);
+}
+
+excludeInput.addEventListener("input", validateExcludeFormat);
+
 document.getElementById("generate").addEventListener("click", () => {
   const count = parseInt(document.getElementById("count").value, 10);
   const excludeRaw = document.getElementById("exclude").value;

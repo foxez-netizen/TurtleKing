@@ -136,6 +136,16 @@ h1 {
   color: var(--placeholder);
 }
 
+.control-row input.exclude-invalid {
+  border-color: #ff7272;
+}
+
+.exclude-hint {
+  margin: -10px 0 16px;
+  font-size: 0.8rem;
+  color: #ff7272;
+}
+
 .form-field {
   margin-bottom: 16px;
 }

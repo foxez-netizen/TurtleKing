@@ -189,6 +189,17 @@ function selectGame(key) {
   document.getElementById("generate").click();
 }
 
+const excludeInput = document.getElementById("exclude");
+const excludeHint = document.getElementById("exclude-hint");
+
+function validateExcludeFormat() {
+  const invalid = /,\S/.test(excludeInput.value);
+  excludeHint.hidden = !invalid;
+  excludeInput.classList.toggle("exclude-invalid", invalid);
+}
+
+excludeInput.addEventListener("input", validateExcludeFormat);
+
 populateGameSelect();
 populateQuickFlags();
 applyGameLanguage(document.getElementById("game").value);
