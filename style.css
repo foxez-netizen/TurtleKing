@@ -45,6 +45,10 @@ body {
   max-width: 560px;
 }
 
+.wrap.wrap-world {
+  max-width: 720px;
+}
+
 header {
   position: relative;
   text-align: center;
@@ -200,16 +204,30 @@ footer a {
   transform: scale(0.98);
 }
 
+.main-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.main-row .controls {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
 .quick-flags {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
+  flex-shrink: 0;
 }
 
 .flag-btn {
   display: inline-flex;
   align-items: center;
+  width: 100%;
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid var(--panel-border);
@@ -227,6 +245,19 @@ footer a {
 
 .flag-btn:active {
   transform: scale(0.97);
+}
+
+@media (max-width: 640px) {
+  .main-row {
+    flex-direction: column;
+  }
+  .quick-flags {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .flag-btn {
+    width: auto;
+  }
 }
 
 .results {

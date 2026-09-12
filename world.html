@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap wrap-world">
     <header>
       <button id="theme-toggle" class="theme-toggle" aria-label="다크/화이트 모드 전환" title="다크/화이트 모드 전환">
         <span id="theme-toggle-icon">🌙</span>
@@ -17,28 +17,30 @@
       <p class="subtitle" data-i18n="worldSubtitle">세계 각국의 복권 규칙에 맞춰 번호를 무작위로 뽑아드려요</p>
     </header>
 
-    <section class="controls">
-      <div class="control-row">
-        <label for="game" data-i18n="gameLabel">국가 / 게임</label>
-        <select id="game"></select>
-      </div>
+    <div class="main-row">
+      <section class="controls">
+        <div class="control-row">
+          <label for="game" data-i18n="gameLabel">국가 / 게임</label>
+          <select id="game"></select>
+        </div>
 
-      <div class="control-row">
-        <label for="count" data-i18n="countLabel">생성 게임 수</label>
-        <select id="count"></select>
-      </div>
+        <div class="control-row">
+          <label for="count" data-i18n="countLabel">생성 게임 수</label>
+          <select id="count"></select>
+        </div>
 
-      <div class="control-row">
-        <label for="exclude" data-i18n="excludeLabel">제외할 번호 (선택)</label>
-        <input type="text" id="exclude" data-i18n-placeholder="excludePlaceholder" placeholder="예: 1, 7, 23">
-      </div>
+        <div class="control-row">
+          <label for="exclude" data-i18n="excludeLabel">제외할 번호 (선택)</label>
+          <input type="text" id="exclude" data-i18n-placeholder="excludePlaceholder" placeholder="예: 1, 7, 23">
+        </div>
 
-      <p id="game-info" class="game-info"></p>
+        <p id="game-info" class="game-info"></p>
 
-      <button id="generate" class="generate-btn" data-i18n="generateBtn">번호 생성하기</button>
-    </section>
+        <button id="generate" class="generate-btn" data-i18n="generateBtn">번호 생성하기</button>
+      </section>
 
-    <div id="quick-flags" class="quick-flags"></div>
+      <div id="quick-flags" class="quick-flags"></div>
+    </div>
 
     <section id="results" class="results"></section>
 
