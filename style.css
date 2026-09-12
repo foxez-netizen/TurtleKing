@@ -55,9 +55,9 @@ header {
   position: absolute;
   top: 0;
   right: 0;
-  width: 40px;
   height: 40px;
-  border-radius: 50%;
+  padding: 0 14px;
+  border-radius: 20px;
   border: 1px solid var(--panel-border);
   background: var(--panel-bg);
   color: var(--text);
@@ -66,7 +66,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.theme-toggle #theme-toggle-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .theme-toggle:hover {
@@ -110,7 +117,7 @@ h1 {
 .control-row select,
 .control-row input {
   flex: 1;
-  max-width: 220px;
+  max-width: 260px;
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid var(--input-border);
@@ -243,6 +250,25 @@ footer a {
 .ball.red    { background: #ff7272; }
 .ball.gray   { background: #aaaaaa; color: #1a1a1a; }
 .ball.green  { background: #b0d840; }
+
+.ball.bonus {
+  box-shadow: inset 0 -3px 4px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3), 0 0 0 3px #f5b301;
+}
+
+.ball-divider {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--subtitle);
+  flex-shrink: 0;
+}
+
+.game-info {
+  margin: -8px 0 16px;
+  font-size: 0.85rem;
+  color: var(--subtitle);
+  text-align: center;
+}
 
 footer {
   text-align: center;

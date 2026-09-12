@@ -1,7 +1,9 @@
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
-  const toggle = document.getElementById("theme-toggle");
-  if (toggle) toggle.textContent = theme === "light" ? "☀️" : "🌙";
+  const icon = document.getElementById("theme-toggle-icon");
+  const label = document.getElementById("theme-toggle-label");
+  if (icon) icon.textContent = theme === "light" ? "☀️" : "🌙";
+  if (label) label.textContent = theme === "light" ? "Lightmode" : "Darkmode";
 }
 
 function initTheme() {
