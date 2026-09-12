@@ -125,6 +125,26 @@ function updateGameInfo() {
     text += APP_I18N.t("bonusInfo", config.bonus.label, config.bonus.min, config.bonus.max, config.bonus.count);
   }
   info.textContent = text;
+
+  const oddsEl = document.getElementById("info-odds");
+  if (oddsEl) {
+    oddsEl.textContent = APP_I18N.t("infoOddsLabel", jackpotOdds(config).toLocaleString(APP_I18N.lang));
+  }
+}
+
+function nCr(n, r) {
+  r = Math.min(r, n - r);
+  let result = 1;
+  for (let i = 0; i < r; i++) {
+    result = (result * (n - i)) / (i + 1);
+  }
+  return result;
+}
+
+function jackpotOdds(config) {
+  let odds = nCr(config.main.max, config.main.count);
+  if (config.bonus) odds *= nCr(config.bonus.max, config.bonus.count);
+  return Math.round(odds);
 }
 
 function makeBallWrap(n, className, freqCount) {

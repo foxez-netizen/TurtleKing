@@ -558,6 +558,52 @@ footer {
   font-size: 0.85rem;
 }
 
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+  margin-top: 8px;
+}
+
+.info {
+  margin-top: 32px;
+  padding: 20px 22px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text);
+  text-align: left;
+}
+
+.info h2 {
+  margin: 0 0 14px;
+  font-size: 1.1rem;
+}
+
+.info h3 {
+  margin: 22px 0 8px;
+  font-size: 0.95rem;
+}
+
+.info p {
+  margin: 0 0 10px;
+}
+
+.info a {
+  color: inherit;
+}
+
+.info .disclaimer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--panel-border);
+  font-size: 0.8rem;
+  color: var(--subtitle);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
