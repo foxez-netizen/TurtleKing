@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>번호별 당첨 통계</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap wrap-world">
+    <header>
+      <button id="theme-toggle" class="theme-toggle" aria-label="다크/화이트 모드 전환" title="다크/화이트 모드 전환">
+        <span id="theme-toggle-icon">🌙</span>
+        <span id="theme-toggle-label">Darkmode</span>
+      </button>
+      <h1>📊 번호별 당첨 통계</h1>
+      <p class="subtitle">역대 당첨번호 데이터를 기반으로 각 번호가 몇 번 나왔는지 보여드려요</p>
+    </header>
+
+    <section class="controls">
+      <div class="control-row">
+        <label for="stats-game">국가 / 게임</label>
+        <select id="stats-game"></select>
+      </div>
+      <p id="stats-info" class="game-info"></p>
+      <div class="stats-sort">
+        <button type="button" class="sort-btn active" data-sort="number">번호순</button>
+        <button type="button" class="sort-btn" data-sort="frequency">많이 나온 순</button>
+      </div>
+    </section>
+
+    <section id="stats-main" class="stats-section">
+      <h2 class="stats-section-title">메인 번호</h2>
+      <div id="stats-main-grid" class="stats-grid"></div>
+    </section>
+
+    <section id="stats-bonus" class="stats-section" hidden>
+      <h2 class="stats-section-title">보너스 번호</h2>
+      <div id="stats-bonus-grid" class="stats-grid"></div>
+    </section>
+
+    <footer>
+      <p id="stats-source" class="stats-source"></p>
+      <p><a href="world.html">🌍 세계 로또 번호 생성기로 돌아가기</a></p>
+      <p><a href="index.html">🇰🇷 한국 로또 생성기로 돌아가기</a></p>
+    </footer>
+  </div>
+
+<script src="i18n.js"></script>
+<script src="games.js"></script>
+<script src="theme.js"></script>
+<script src="stats.js"></script>
+</body>
+</html>

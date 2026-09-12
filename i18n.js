@@ -21,6 +21,8 @@ const I18N_STRINGS = {
     selectBtn: "⭐ 이 번호 선택",
     selectedBtn: "✅ 선택됨",
     wishMessage: "이 번호가 당첨되길 기원합니다! 🍀✨",
+    timesLabel: (n) => `${n}회`,
+    statsLink: "📊 번호별 당첨 통계 보기",
   },
   en: {
     worldLink: "🌍 View World Lottery Number Generator",
@@ -44,6 +46,8 @@ const I18N_STRINGS = {
     selectBtn: "⭐ Pick this one",
     selectedBtn: "✅ Selected",
     wishMessage: "Wishing you the jackpot with this one! 🍀✨",
+    timesLabel: (n) => `${n} time${n === 1 ? "" : "s"}`,
+    statsLink: "📊 View Number Frequency Stats",
   },
   ja: {
     worldLink: "🌍 世界の宝くじ番号ジェネレーターを見る",
@@ -67,6 +71,8 @@ const I18N_STRINGS = {
     selectBtn: "⭐ この番号を選ぶ",
     selectedBtn: "✅ 選択済み",
     wishMessage: "この番号が当たりますように！🍀✨",
+    timesLabel: (n) => `${n}回`,
+    statsLink: "📊 番号別当選統計を見る",
   },
   it: {
     worldLink: "🌍 Vedi il Generatore di Numeri della Lotteria Mondiale",
@@ -90,6 +96,8 @@ const I18N_STRINGS = {
     selectBtn: "⭐ Scegli questo",
     selectedBtn: "✅ Selezionato",
     wishMessage: "Che questi numeri ti portino il jackpot! 🍀✨",
+    timesLabel: (n) => `${n} volte`,
+    statsLink: "📊 Vedi le statistiche dei numeri",
   },
 };
 

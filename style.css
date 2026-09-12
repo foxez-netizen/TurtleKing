@@ -414,6 +414,23 @@ footer a {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.ball-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 38px;
+  flex-shrink: 0;
+}
+
+.ball-freq {
+  font-size: 0.62rem;
+  color: var(--subtitle);
+  text-align: center;
+  line-height: 1.2;
 }
 
 .ball {
@@ -443,6 +460,7 @@ footer a {
 .ball-divider {
   display: flex;
   align-items: center;
+  height: 38px;
   font-weight: 700;
   color: var(--subtitle);
   flex-shrink: 0;
@@ -453,6 +471,84 @@ footer a {
   font-size: 0.85rem;
   color: var(--subtitle);
   text-align: center;
+}
+
+.stats-sort {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sort-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--panel-border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.sort-btn:hover {
+  transform: scale(1.04);
+}
+
+.sort-btn.active {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border-color: #4f46e5;
+  color: #ffffff;
+}
+
+.stats-section {
+  margin-bottom: 24px;
+}
+
+.stats-section-title {
+  font-size: 1rem;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+  gap: 14px 10px;
+}
+
+.stat-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-count {
+  font-size: 0.68rem;
+  color: var(--subtitle);
+  white-space: nowrap;
+}
+
+.stat-badge {
+  position: absolute;
+  top: -6px;
+  right: 6px;
+  font-size: 0.75rem;
+}
+
+.stat-cell.stat-hot .ball {
+  box-shadow: inset 0 -3px 4px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3), 0 0 0 3px #f5730155;
+}
+
+.stat-cell.stat-cold .ball {
+  box-shadow: inset 0 -3px 4px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.3), 0 0 0 3px #60a5fa55;
+  opacity: 0.75;
+}
+
+.stats-source {
+  word-break: break-all;
 }
 
 footer {

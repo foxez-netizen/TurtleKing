@@ -72,6 +72,11 @@ function generateOneGame(excluded) {
   return picked.sort((a, b) => a - b);
 }
 
+let KR645_STATS = null;
+const KR645_STATS_READY = loadGameStats("kr645").then((stats) => {
+  KR645_STATS = stats;
+});
+
 function renderGames(games) {
   const results = document.getElementById("results");
   results.innerHTML = "";
@@ -88,10 +93,23 @@ function renderGames(games) {
     const balls = document.createElement("div");
     balls.className = "balls";
     nums.forEach((n) => {
+      const wrap = document.createElement("div");
+      wrap.className = "ball-wrap";
+
       const ball = document.createElement("div");
       ball.className = `ball ${ballColor(n)}`;
       ball.textContent = n;
-      balls.appendChild(ball);
+      wrap.appendChild(ball);
+
+      const freqCount = KR645_STATS && KR645_STATS.main ? KR645_STATS.main[String(n)] : null;
+      if (freqCount != null) {
+        const freq = document.createElement("span");
+        freq.className = "ball-freq";
+        freq.textContent = `${freqCount}회`;
+        wrap.appendChild(freq);
+      }
+
+      balls.appendChild(wrap);
     });
     row.appendChild(balls);
 
@@ -148,5 +166,7 @@ document.getElementById("generate").addEventListener("click", () => {
   }
 });
 
-// Generate an initial set on load
-document.getElementById("generate").click();
+// Generate an initial set on load, once frequency stats are ready (or have failed to load)
+KR645_STATS_READY.finally(() => {
+  document.getElementById("generate").click();
+});

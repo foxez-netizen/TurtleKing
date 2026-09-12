@@ -127,7 +127,26 @@ function updateGameInfo() {
   info.textContent = text;
 }
 
-function renderGames(config, games) {
+function makeBallWrap(n, className, freqCount) {
+  const wrap = document.createElement("div");
+  wrap.className = "ball-wrap";
+
+  const ball = document.createElement("div");
+  ball.className = className;
+  ball.textContent = n;
+  wrap.appendChild(ball);
+
+  if (freqCount != null) {
+    const freq = document.createElement("span");
+    freq.className = "ball-freq";
+    freq.textContent = APP_I18N.t("timesLabel", freqCount);
+    wrap.appendChild(freq);
+  }
+
+  return wrap;
+}
+
+function renderGames(config, games, stats) {
   const results = document.getElementById("results");
   results.innerHTML = "";
   games.forEach((game, i) => {
@@ -143,10 +162,8 @@ function renderGames(config, games) {
     const balls = document.createElement("div");
     balls.className = "balls";
     game.main.forEach((n) => {
-      const ball = document.createElement("div");
-      ball.className = `ball ${bandColor(n, config.main.max)}`;
-      ball.textContent = n;
-      balls.appendChild(ball);
+      const freqCount = stats && stats.main ? stats.main[String(n)] : null;
+      balls.appendChild(makeBallWrap(n, `ball ${bandColor(n, config.main.max)}`, freqCount));
     });
 
     if (game.bonus.length > 0) {
@@ -156,10 +173,8 @@ function renderGames(config, games) {
       balls.appendChild(divider);
 
       game.bonus.forEach((n) => {
-        const ball = document.createElement("div");
-        ball.className = `ball bonus ${bandColor(n, config.bonus.max)}`;
-        ball.textContent = n;
-        balls.appendChild(ball);
+        const freqCount = stats && stats.bonus ? stats.bonus[String(n)] : null;
+        balls.appendChild(makeBallWrap(n, `ball bonus ${bandColor(n, config.bonus.max)}`, freqCount));
       });
     }
 
@@ -235,7 +250,7 @@ document.getElementById("generate").addEventListener("click", () => {
     for (let i = 0; i < count; i++) {
       games.push(generateOneGame(config, excludedMain));
     }
-    renderGames(config, games);
+    loadGameStats(key).then((stats) => renderGames(config, games, stats));
   } catch (err) {
     const results = document.getElementById("results");
     results.innerHTML = `<p style="color:#ff7272; text-align:center;">${err.message}</p>`;
