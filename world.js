@@ -93,6 +93,21 @@ function populateGameSelect() {
   }
 }
 
+function populateQuickFlags() {
+  const container = document.getElementById("quick-flags");
+  container.setAttribute("aria-label", APP_I18N.t("quickFlagsLabel"));
+  Object.entries(GAMES).forEach(([key, config]) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "flag-btn";
+    btn.textContent = config.name.split(" ")[0];
+    btn.title = config.name;
+    btn.setAttribute("aria-label", config.name);
+    btn.dataset.game = key;
+    container.appendChild(btn);
+  });
+}
+
 function populateCountSelect() {
   const select = document.getElementById("count");
   for (let n = 1; n <= 5; n++) {
@@ -160,9 +175,18 @@ document.documentElement.lang = APP_I18N.lang;
 
 populateGameSelect();
 populateCountSelect();
+populateQuickFlags();
 updateGameInfo();
 
 document.getElementById("game").addEventListener("change", () => {
+  updateGameInfo();
+  document.getElementById("generate").click();
+});
+
+document.getElementById("quick-flags").addEventListener("click", (e) => {
+  const btn = e.target.closest(".flag-btn");
+  if (!btn) return;
+  document.getElementById("game").value = btn.dataset.game;
   updateGameInfo();
   document.getElementById("generate").click();
 });

@@ -16,6 +16,7 @@ const I18N_STRINGS = {
     mainInfo: (min, max, count) => `메인 번호 ${min}~${max} 중 ${count}개`,
     bonusInfo: (label, min, max, count) => ` + 보너스(${label}) ${min}~${max} 중 ${count}개`,
     gameRowLabel: (n) => `${n}게임`,
+    quickFlagsLabel: "국가별 빠른 생성",
   },
   en: {
     worldLink: "🌍 View World Lottery Number Generator",
@@ -34,6 +35,7 @@ const I18N_STRINGS = {
     mainInfo: (min, max, count) => `Main numbers: ${count} of ${min}–${max}`,
     bonusInfo: (label, min, max, count) => ` + Bonus (${label}): ${count} of ${min}–${max}`,
     gameRowLabel: (n) => `Game ${n}`,
+    quickFlagsLabel: "Quick generate by country",
   },
   ja: {
     worldLink: "🌍 世界の宝くじ番号ジェネレーターを見る",
@@ -52,6 +54,7 @@ const I18N_STRINGS = {
     mainInfo: (min, max, count) => `メイン番号 ${min}〜${max}のうち${count}個`,
     bonusInfo: (label, min, max, count) => ` + ボーナス(${label}) ${min}〜${max}のうち${count}個`,
     gameRowLabel: (n) => `${n}ゲーム`,
+    quickFlagsLabel: "国別クイック生成",
   },
   it: {
     worldLink: "🌍 Vedi il Generatore di Numeri della Lotteria Mondiale",
@@ -70,6 +73,7 @@ const I18N_STRINGS = {
     mainInfo: (min, max, count) => `Numeri principali: ${count} su ${min}–${max}`,
     bonusInfo: (label, min, max, count) => ` + Bonus (${label}): ${count} su ${min}–${max}`,
     gameRowLabel: (n) => `Partita ${n}`,
+    quickFlagsLabel: "Generazione rapida per paese",
   },
 };
 

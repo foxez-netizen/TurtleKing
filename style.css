@@ -200,6 +200,48 @@ footer a {
   transform: scale(0.98);
 }
 
+.generate-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.generate-row .generate-btn {
+  flex: 1;
+  width: auto;
+  min-width: 140px;
+}
+
+.quick-flags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.flag-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel-bg);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.flag-btn:hover {
+  transform: scale(1.12);
+}
+
+.flag-btn:active {
+  transform: scale(0.95);
+}
+
 .results {
   display: flex;
   flex-direction: column;
