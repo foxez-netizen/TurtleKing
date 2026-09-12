@@ -26,18 +26,22 @@ LANGS = {
     "ko": {
         "title": "세계 로또 번호 생성기 | 파워볼·유로밀리언스·로또6 당첨확률 – LottoPick",
         "description": "한국, 미국, 유럽, 영국, 일본, 호주, 이탈리아 등 세계 각국 로또 규칙에 맞춰 번호를 무작위로 뽑아주는 생성기. 국가별 당첨 확률과 번호별 과거 당첨 통계를 함께 확인하세요.",
+        "og_locale": "ko_KR",
     },
     "en": {
         "title": "World Lottery Number Generator | Powerball, EuroMillions, Loto 6 Odds – LottoPick",
         "description": "Generate random numbers for Powerball, Mega Millions, EuroMillions, UK Lotto, Loto 6, Australia Powerball, SuperEnalotto and Korea Lotto 6/45. Check jackpot odds and historical number frequency stats.",
+        "og_locale": "en_US",
     },
     "ja": {
         "title": "世界の宝くじ番号ジェネレーター | パワーボール・ユーロミリオンズ・ロト6の当選確率 – LottoPick",
         "description": "パワーボール、メガミリオンズ、ユーロミリオンズ、UKロト、ロト6、オーストラリアパワーボール、スーパーエナロット、韓国ロト6/45の番号をランダムに生成。当選確率と過去の番号別出現頻度も確認できます。",
+        "og_locale": "ja_JP",
     },
     "it": {
         "title": "Generatore di Numeri della Lotteria Mondiale | Probabilità Powerball, EuroMillions, Loto 6 – LottoPick",
         "description": "Genera numeri casuali per Powerball, Mega Millions, EuroMillions, UK Lotto, Loto 6, Powerball Australia, SuperEnalotto e Lotto coreano 6/45. Consulta le probabilità di vincita e le statistiche di frequenza dei numeri.",
+        "og_locale": "it_IT",
     },
 }
 
@@ -64,6 +68,12 @@ def main():
             out,
             count=1,
         )
+        out = re.sub(r'<meta property="og:locale" content="[^"]*">', f'<meta property="og:locale" content="{meta["og_locale"]}">', out, count=1)
+        out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{SITE_URL}/{lang}/world.html">', out, count=1)
+        out = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{meta["title"]}">', out, count=1)
+        out = re.sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{meta["description"]}">', out, count=1)
+        out = re.sub(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{meta["title"]}">', out, count=1)
+        out = re.sub(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{meta["description"]}">', out, count=1)
         out = out.replace(
             '"url": "https://lottopick.org/world.html",',
             f'"url": "{SITE_URL}/{lang}/world.html",\n  "inLanguage": "{lang}",',

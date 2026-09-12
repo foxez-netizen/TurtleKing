@@ -21,6 +21,8 @@ import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SITE_URL = "https://lottopick.org"
+BRAND = "LottoPick"
+OG_LOCALE = {"en": "en_US", "ja": "ja_JP", "it": "it_IT"}
 ADSENSE_SCRIPT = (
     '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
     '?client=ca-pub-2176623685813595" crossorigin="anonymous"></script>'
@@ -169,6 +171,15 @@ def page_shell(key, meta, lang, title, description, body, canonical_path):
 <title>{title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{canonical}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{BRAND}">
+<meta property="og:locale" content="{OG_LOCALE[lang]}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
 <link rel="stylesheet" href="/style.css">
 {ADSENSE_SCRIPT}
 </head>

@@ -63,6 +63,15 @@ def page_shell(title, description, body, canonical_path):
 <title>{title}</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{canonical}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{BRAND}">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="{canonical}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
 <link rel="stylesheet" href="/style.css">
 {ADSENSE_SCRIPT}
 </head>
