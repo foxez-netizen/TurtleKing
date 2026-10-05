@@ -31,6 +31,20 @@ ADSENSE_SCRIPT = (
 )
 
 
+GTM_HEAD = """<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KN25528B');</script>
+<!-- End Google Tag Manager -->"""
+
+GTM_BODY = """<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KN25528B"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->"""
+
+
 def band_class(n, max_n=45):
     ratio = n / max_n
     if ratio <= 0.2:
@@ -58,6 +72,7 @@ def page_shell(title, description, body, canonical_path):
     return f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
@@ -76,6 +91,7 @@ def page_shell(title, description, body, canonical_path):
 {ADSENSE_SCRIPT}
 </head>
 <body>
+{GTM_BODY}
   <div class="wrap">
     <header>
       <button id="theme-toggle" class="theme-toggle" aria-label="다크/화이트 모드 전환" title="다크/화이트 모드 전환">

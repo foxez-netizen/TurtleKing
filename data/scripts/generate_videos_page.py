@@ -27,6 +27,20 @@ PLAY_SVG = ('<svg class="yt-ico" viewBox="0 0 28 20" aria-hidden="true">'
             '<path d="M11 5.5v9l8-4.5z" fill="#fff"/></svg>')
 
 
+GTM_HEAD = """<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KN25528B');</script>
+<!-- End Google Tag Manager -->"""
+
+GTM_BODY = """<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KN25528B"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->"""
+
+
 def esc(s):
     return html.escape(s, quote=True)
 
@@ -62,6 +76,7 @@ def main():
     page = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>거북왕의 사주풀이 영상 – 인물 사주 이야기 | 느릿느릿 사주풀이</title>
@@ -78,6 +93,7 @@ def main():
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176623685813595" crossorigin="anonymous"></script>
 </head>
 <body>
+{GTM_BODY}
 <div class="wrap">
   <div class="topbar">
     <div class="brand-wrap"><a class="brand" href="/"><i class="brand-turtle" aria-hidden="true">🐢</i>느릿느릿 <span>사주풀이</span></a><a class="brand-video" href="/videos/" aria-current="page">{PLAY_SVG}영상</a></div>
