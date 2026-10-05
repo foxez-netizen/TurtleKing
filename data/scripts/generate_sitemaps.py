@@ -52,7 +52,7 @@ def build_pages_sitemap():
     # stamping today's date on every run would make this file (and thus a
     # commit) change daily for no real reason.
     static_pages = [
-        "/", "/guide.html", "/lotto/index.html", "/world.html", "/ko/world.html", "/en/world.html",
+        "/", "/guide.html", "/videos/", "/lotto/index.html", "/world.html", "/ko/world.html", "/en/world.html",
         "/ja/world.html", "/it/world.html", "/stats.html", "/about.html",
         "/privacy.html", "/partnership.html", "/draws/index.html", "/numbers/index.html",
     ]
