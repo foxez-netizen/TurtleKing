@@ -14,7 +14,7 @@ jobs:
 
       - name: Replace old domain everywhere
         run: |
-          grep -rIl 'lottopick\.org' . --exclude-dir=.git | xargs -r sed -i 's/lottopick\.org/luckyturtle.life/g'
+          grep -rIl 'lottopick\.org' . --exclude-dir=.git --exclude-dir=.github | xargs -r sed -i 's/lottopick\.org/luckyturtle.life/g'
 
       - name: Commit and push
         run: |
