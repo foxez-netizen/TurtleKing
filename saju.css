@@ -12,6 +12,8 @@ a{color:var(--accent)}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 0;flex-wrap:wrap}
 .brand{font-weight:800;font-size:1.05rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
 .brand span{color:var(--accent)}
+.brand{display:inline-flex;align-items:center;gap:.3em}
+.brand-turtle{font-style:normal;font-size:1.25em;line-height:1}
 .topnav{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .topnav a,.topnav button{font:inherit;font-size:.86rem;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);text-decoration:none;cursor:pointer}
 .topnav a:hover,.topnav button:hover{border-color:var(--accent)}
@@ -112,3 +114,8 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding-top:16px;color:v
 footer a{margin:0 6px;color:var(--sub)}
 .disc{font-size:.8rem;color:var(--sub);text-align:center;margin:8px 0}
 @media (max-width:520px){.bar-row{grid-template-columns:54px 1fr 74px}.ten-grid{gap:5px}.ten-d{display:none}.seun-grid{grid-template-columns:repeat(5,1fr);gap:4px}.seun-card .chip.sm{width:22px;height:22px;font-size:.78rem}.card{padding:14px}}
+
+/* 로또 공 아이콘 */
+.lotto-ico{flex:none}
+.topnav .lotto-ico{height:2em!important;vertical-align:-.6em!important}
+.lotto-banner .lotto-ico{height:2.6em!important;vertical-align:-.9em!important}

@@ -739,3 +739,7 @@ footer {
     padding: 0 60px;
   }
 }
+
+/* 로또 공 아이콘 */
+.lotto-ico{flex:none}
+h1 .lotto-ico{display:block;height:2.2em!important;margin:0 auto 8px!important}

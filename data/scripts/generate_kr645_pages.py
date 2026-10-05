@@ -136,7 +136,7 @@ def render_draw_page(draw, prev_no, next_no, latest_no):
         f"등수별 당첨금과 당첨자 수, 총 판매금액을 확인하세요."
     )
 
-    body = f"""      <h1>🎱 로또 {n}회 당첨번호</h1>
+    body = f"""      <h1><img class="lotto-ico" src="/lotto-icon.webp" alt="" width="216" height="240" style="height:1.6em;width:auto;vertical-align:-.45em;margin-right:.35em">로또 {n}회 당첨번호</h1>
       <p class="subtitle">{fmt_date_kr(draw['date'])} 추첨</p>
     </header>
 
