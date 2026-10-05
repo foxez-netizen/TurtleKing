@@ -16,7 +16,7 @@ import json
 import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-SITE_URL = "https://lottopick.org"
+SITE_URL = "https://luckyturtle.life"
 SITEMAPS_DIR = f"{ROOT}/sitemaps"
 
 WORLD_GAMES = {

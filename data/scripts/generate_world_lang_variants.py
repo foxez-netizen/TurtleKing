@@ -20,7 +20,7 @@ import os
 import re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-SITE_URL = "https://lottopick.org"
+SITE_URL = "https://luckyturtle.life"
 
 LANGS = {
     "ko": {
@@ -75,7 +75,7 @@ def main():
         out = re.sub(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{meta["title"]}">', out, count=1)
         out = re.sub(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{meta["description"]}">', out, count=1)
         out = out.replace(
-            '"url": "https://lottopick.org/world.html",',
+            '"url": "https://luckyturtle.life/world.html",',
             f'"url": "{SITE_URL}/{lang}/world.html",\n  "inLanguage": "{lang}",',
         )
 

@@ -20,7 +20,7 @@ import json
 import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-SITE_URL = "https://lottopick.org"
+SITE_URL = "https://luckyturtle.life"
 BRAND = "LottoPick"
 OG_LOCALE = {"en": "en_US", "ja": "ja_JP", "it": "it_IT"}
 ADSENSE_SCRIPT = (

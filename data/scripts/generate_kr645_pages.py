@@ -20,7 +20,7 @@ STATS_JSON = f"{ROOT}/data/kr645.json"
 DRAWS_DIR = f"{ROOT}/draws"
 NUMBERS_DIR = f"{ROOT}/numbers"
 
-SITE_URL = "https://lottopick.org"
+SITE_URL = "https://luckyturtle.life"
 BRAND = "LottoPick"
 
 RANK_LABELS = ["1등", "2등", "3등", "4등", "5등"]
