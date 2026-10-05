@@ -1,0 +1,44 @@
+name: Update YouTube videos page
+
+on:
+  schedule:
+    # Every Monday 00:00 UTC (09:00 KST). Pulls the channel RSS feed,
+    # snapshots view counts for the weekly ranking, and regenerates /videos/.
+    - cron: "0 0 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-auto-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Refresh video data from the channel RSS feed
+        run: python3 data/scripts/update_videos.py
+
+      - name: Regenerate the videos page and home CTA
+        run: python3 data/scripts/generate_videos_page.py
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/videos.json videos/ index.html
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Auto-update: refresh YouTube videos page"
+            git pull --rebase
+            git push
+          fi
