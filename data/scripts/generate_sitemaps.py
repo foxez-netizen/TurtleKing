@@ -54,7 +54,14 @@ def build_pages_sitemap():
         "/", "/guide", "/videos/", "/lotto/", "/world", "/ko/world", "/en/world",
         "/ja/world", "/it/world", "/stats", "/about",
         "/privacy", "/partnership", "/draws/", "/numbers/",
+        "/en/", "/en/blog/", "/en/about", "/en/contact", "/en/privacy",
     ]
+    # English blog posts: picked up from the folder so new posts are listed
+    # without editing this script.
+    blog_dir = os.path.join(ROOT, "en", "blog")
+    for name in sorted(os.listdir(blog_dir)):
+        if name.endswith(".html") and name != "index.html":
+            static_pages.append(f"/en/blog/{name[:-5]}")
     for key in WORLD_GAMES:
         static_pages.append(f"/draws/{key}/")
         static_pages.append(f"/numbers/{key}/")

@@ -106,6 +106,7 @@ ul.plain li{margin:4px 0}
 .lotto-banner .go{white-space:nowrap;color:var(--accent);font-weight:800}
 .prose h2{font-size:1.25rem;margin:1.6em 0 .4em}.prose h3{font-size:1.05rem;margin:1.2em 0 .3em}.prose p{margin:.5em 0}
 .prose table{width:100%;border-collapse:collapse;font-size:.9rem;margin:10px 0}
+@media (max-width:600px){.prose table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
 .prose th,.prose td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .prose th{background:var(--bg2)}
 .toc{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
