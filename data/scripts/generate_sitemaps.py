@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
 """
-Generate sitemap.xml (a sitemap index) plus per-section child sitemaps
-under /sitemaps/, covering every static page and every generated
-draws/numbers page across all 8 games. Split into multiple files instead
-of one giant sitemap because a single game (superenalotto: 3244 draws +
-90 numbers) already approaches sizes that are awkward to hand-maintain,
-and because search engines process a sitemap index more reliably than
-one very large file.
+Generate sitemap.xml (a sitemap index) pointing at /sitemaps/pages.xml,
+which lists the site's indexable pages: the saju home/guide, the lotto
+tools, and the per-game archive index pages. Individual draw/number pages
+are intentionally excluded (they are noindex) - see LEGACY_CHILD_SITEMAPS.
 
 Re-run any time draws/numbers pages are regenerated (see update_kr645.py
 / update_world.py, which call this at the end) so the sitemap stays
 current as new draws are added.
 """
-import json
 import os
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -51,41 +47,32 @@ def build_pages_sitemap():
     # so there's no accurate "last modified" signal to compute here - and
     # stamping today's date on every run would make this file (and thus a
     # commit) change daily for no real reason.
+    #
+    # Extensionless URLs only: Cloudflare redirects "/x.html" -> "/x", and a
+    # sitemap listing redirecting URLs is wasted crawl budget.
     static_pages = [
-        "/", "/guide.html", "/videos/", "/lotto/index.html", "/world.html", "/ko/world.html", "/en/world.html",
-        "/ja/world.html", "/it/world.html", "/stats.html", "/about.html",
-        "/privacy.html", "/partnership.html", "/draws/index.html", "/numbers/index.html",
+        "/", "/guide", "/videos/", "/lotto/", "/world", "/ko/world", "/en/world",
+        "/ja/world", "/it/world", "/stats", "/about",
+        "/privacy", "/partnership", "/draws/", "/numbers/",
     ]
     for key in WORLD_GAMES:
-        static_pages.append(f"/draws/{key}/index.html")
-        static_pages.append(f"/numbers/{key}/index.html")
+        static_pages.append(f"/draws/{key}/")
+        static_pages.append(f"/numbers/{key}/")
 
     entries = [url_entry(f"{SITE_URL}{p}") for p in static_pages]
     write_urlset(f"{SITEMAPS_DIR}/pages.xml", entries)
     return len(entries)
 
 
-def build_kr645_sitemaps():
-    draws = json.load(open(f"{ROOT}/data/kr645-draws.json"))
-    draw_entries = [url_entry(f"{SITE_URL}/draws/{d['draw_no']}.html", d["date"]) for d in draws]
-    write_urlset(f"{SITEMAPS_DIR}/kr645-draws.xml", draw_entries)
-
-    number_entries = [url_entry(f"{SITE_URL}/numbers/{n}.html") for n in range(1, 46)]
-    write_urlset(f"{SITEMAPS_DIR}/kr645-numbers.xml", number_entries)
-    return len(draw_entries), len(number_entries)
-
-
-def build_world_sitemaps():
-    counts = {}
-    for key, main_max in WORLD_GAMES.items():
-        draws = json.load(open(f"{ROOT}/data/{key}-draws.json"))
-        draw_entries = [url_entry(f"{SITE_URL}/draws/{key}/{d['id']}.html", d["date"]) for d in draws]
-        write_urlset(f"{SITEMAPS_DIR}/{key}-draws.xml", draw_entries)
-
-        number_entries = [url_entry(f"{SITE_URL}/numbers/{key}/{n}.html") for n in range(1, main_max + 1)]
-        write_urlset(f"{SITEMAPS_DIR}/{key}-numbers.xml", number_entries)
-        counts[key] = (len(draw_entries), len(number_entries))
-    return counts
+# Per-draw / per-number pages are deliberately NOT in any sitemap: each one
+# is a few lines of numbers with almost no unique text, and thousands of
+# them on a new domain got the whole site (saju pages included) stuck at
+# "Crawled - currently not indexed". Those pages now carry
+# noindex,follow (see generate_*_pages.py); the archive index pages above
+# still link to them so users and crawlers can reach them.
+LEGACY_CHILD_SITEMAPS = ["kr645-draws.xml", "kr645-numbers.xml"] + [
+    f"{key}-{kind}.xml" for key in WORLD_GAMES for kind in ("draws", "numbers")
+]
 
 
 def build_index(child_files):
@@ -107,17 +94,14 @@ def main():
     os.makedirs(SITEMAPS_DIR, exist_ok=True)
 
     n_pages = build_pages_sitemap()
-    n_kr_draws, n_kr_numbers = build_kr645_sitemaps()
-    world_counts = build_world_sitemaps()
+    for name in LEGACY_CHILD_SITEMAPS:
+        path = f"{SITEMAPS_DIR}/{name}"
+        if os.path.exists(path):
+            os.remove(path)
 
-    child_files = ["pages.xml", "kr645-draws.xml", "kr645-numbers.xml"]
-    for key in WORLD_GAMES:
-        child_files += [f"{key}-draws.xml", f"{key}-numbers.xml"]
-
+    child_files = ["pages.xml"]
     build_index(child_files)
-
-    total = n_pages + n_kr_draws + n_kr_numbers + sum(a + b for a, b in world_counts.values())
-    print(f"sitemap.xml -> {len(child_files)} child sitemaps, {total} URLs total")
+    print(f"sitemap.xml -> {len(child_files)} child sitemap, {n_pages} URLs total")
 
 
 if __name__ == "__main__":

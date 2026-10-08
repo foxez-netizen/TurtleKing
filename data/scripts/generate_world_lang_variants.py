@@ -64,19 +64,19 @@ def main():
         )
         out = re.sub(
             r'<link rel="canonical" href="[^"]*">',
-            f'<link rel="canonical" href="{SITE_URL}/{lang}/world.html">',
+            f'<link rel="canonical" href="{SITE_URL}/{lang}/world">',
             out,
             count=1,
         )
         out = re.sub(r'<meta property="og:locale" content="[^"]*">', f'<meta property="og:locale" content="{meta["og_locale"]}">', out, count=1)
-        out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{SITE_URL}/{lang}/world.html">', out, count=1)
+        out = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{SITE_URL}/{lang}/world">', out, count=1)
         out = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{meta["title"]}">', out, count=1)
         out = re.sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{meta["description"]}">', out, count=1)
         out = re.sub(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{meta["title"]}">', out, count=1)
         out = re.sub(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{meta["description"]}">', out, count=1)
         out = out.replace(
-            '"url": "https://luckyturtle.life/world.html",',
-            f'"url": "{SITE_URL}/{lang}/world.html",\n  "inLanguage": "{lang}",',
+            '"url": "https://luckyturtle.life/world",',
+            f'"url": "{SITE_URL}/{lang}/world",\n  "inLanguage": "{lang}",',
         )
 
         out = out.replace(

@@ -189,7 +189,7 @@ def main():
 <div class="wrap">
   <div class="topbar">
     <div class="brand-wrap"><a class="brand" href="/"><i class="brand-turtle" aria-hidden="true">🐢</i>느릿느릿 <span>사주풀이</span></a><a class="brand-video" href="/videos/" aria-current="page">{PLAY_SVG}영상</a></div>
-    <nav class="topnav"><a href="/">사주 보기</a><a href="/guide.html">사주 가이드</a><button type="button" id="theme-btn" aria-label="다크/라이트 모드 전환">🌙 다크</button></nav>
+    <nav class="topnav"><a href="/">사주 보기</a><a href="/guide">사주 가이드</a><button type="button" id="theme-btn" aria-label="다크/라이트 모드 전환">🌙 다크</button></nav>
   </div>
 
   <section class="hero vhero">
@@ -207,10 +207,10 @@ def main():
     <span class="go">↗</span>
   </a>
 
-  <p class="disc">영상 속 사주 해석은 전통 명리학에 기반한 참고용 이야기입니다. <a href="/guide.html">사주 가이드</a>에서 용어를 더 자세히 볼 수 있고, <a href="/">내 사주</a>도 바로 확인해 볼 수 있습니다.</p>
+  <p class="disc">영상 속 사주 해석은 전통 명리학에 기반한 참고용 이야기입니다. <a href="/guide">사주 가이드</a>에서 용어를 더 자세히 볼 수 있고, <a href="/">내 사주</a>도 바로 확인해 볼 수 있습니다.</p>
 
   <footer>
-    <a href="/">사주 보기</a><a href="/guide.html">사주 가이드</a><a href="/videos/">영상</a><a href="/lotto/">로또</a><a href="/about.html">소개</a><a href="/privacy.html">개인정보처리방침</a>
+    <a href="/">사주 보기</a><a href="/guide">사주 가이드</a><a href="/videos/">영상</a><a href="/lotto/">로또</a><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a>
     <div style="margin-top:8px">© 느릿느릿 사주풀이 · luckyturtle.life</div>
   </footer>
 </div>

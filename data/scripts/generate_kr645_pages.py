@@ -13,6 +13,7 @@ with new draws (see update_kr645.py) to regenerate everything.
 """
 import json
 import os
+import re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DRAWS_JSON = f"{ROOT}/data/kr645-draws.json"
@@ -21,7 +22,22 @@ DRAWS_DIR = f"{ROOT}/draws"
 NUMBERS_DIR = f"{ROOT}/numbers"
 
 SITE_URL = "https://luckyturtle.life"
-BRAND = "LottoPick"
+BRAND = "느릿느릿 사주풀이"
+
+# Cloudflare serves every page at its extensionless URL and redirects
+# "/x.html" -> "/x" (and "/dir/index.html" -> "/dir/"), so canonicals,
+# og:url and internal links must all use the clean form - otherwise the
+# canonical points at a URL that redirects away, and Google treats the
+# two as duplicates.
+_HTML_URL_RE = re.compile(r'((?:href|content)="(?:https://luckyturtle\.life)?/[^"?#]*?)(?:index)?\.html(?=["?#])')
+
+
+def clean_urls(html):
+    return _HTML_URL_RE.sub(r"\1", html)
+
+
+ROBOTS_NOINDEX = '<meta name="robots" content="noindex,follow">\n'
+
 
 RANK_LABELS = ["1등", "2등", "3등", "4등", "5등"]
 
@@ -67,16 +83,17 @@ def fmt_won(n):
     return f"{n:,}원"
 
 
-def page_shell(title, description, body, canonical_path):
+def page_shell(title, description, body, canonical_path, noindex=False):
     canonical = f"{SITE_URL}{canonical_path}"
-    return f"""<!DOCTYPE html>
+    robots = ROBOTS_NOINDEX if noindex else ""
+    html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
-<meta name="description" content="{description}">
+{robots}<meta name="description" content="{description}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{BRAND}">
@@ -101,7 +118,7 @@ def page_shell(title, description, body, canonical_path):
 {body}
     <footer>
       <nav class="site-nav">
-        <a href="/index.html">🇰🇷 로또 번호 생성기로 돌아가기</a>
+        <a href="/lotto/">🇰🇷 로또 번호 생성기로 돌아가기</a>
         <a href="/numbers/index.html">🔢 번호별 통계</a>
         <a href="/draws/index.html">📅 회차별 당첨번호</a>
         <a href="/stats.html">📊 번호별 당첨 통계</a>
@@ -112,6 +129,7 @@ def page_shell(title, description, body, canonical_path):
 </body>
 </html>
 """
+    return clean_urls(html)
 
 
 def render_draw_page(draw, prev_no, next_no, latest_no):
@@ -182,7 +200,7 @@ def render_draw_page(draw, prev_no, next_no, latest_no):
       {nav_links[2]}
     </nav>
 """
-    return page_shell(title, description, body, f"/draws/{n}.html")
+    return page_shell(title, description, body, f"/draws/{n}.html", noindex=True)
 
 
 def render_draws_index(draws):
@@ -255,7 +273,7 @@ def render_number_page(num, stats, recent_draws, latest_no):
       {nav_links[2]}
     </nav>
 """
-    return page_shell(title, description, body, f"/numbers/{num}.html")
+    return page_shell(title, description, body, f"/numbers/{num}.html", noindex=True)
 
 
 def render_numbers_index():

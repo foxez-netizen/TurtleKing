@@ -18,10 +18,26 @@ Re-run any time a data/<key>-draws.json is updated with new draws.
 """
 import json
 import os
+import re
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SITE_URL = "https://luckyturtle.life"
-BRAND = "LottoPick"
+BRAND = "느릿느릿 사주풀이"
+
+# Cloudflare serves every page at its extensionless URL and redirects
+# "/x.html" -> "/x" (and "/dir/index.html" -> "/dir/"), so canonicals,
+# og:url and internal links must all use the clean form - otherwise the
+# canonical points at a URL that redirects away, and Google treats the
+# two as duplicates.
+_HTML_URL_RE = re.compile(r'((?:href|content)="(?:https://luckyturtle\.life)?/[^"?#]*?)(?:index)?\.html(?=["?#])')
+
+
+def clean_urls(html):
+    return _HTML_URL_RE.sub(r"\1", html)
+
+
+ROBOTS_NOINDEX = '<meta name="robots" content="noindex,follow">\n'
+
 OG_LOCALE = {"en": "en_US", "ja": "ja_JP", "it": "it_IT"}
 ADSENSE_SCRIPT = (
     '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
@@ -42,8 +58,8 @@ STR = {
     "en": {
         "darkToggle": "Toggle dark/light mode",
         "drawnOn": lambda date: f"Drawn on {date}",
-        "drawTitleId": lambda name, id_: f"{name} Draw #{id_} Winning Numbers | LottoPick",
-        "drawTitleDate": lambda name, date: f"{name} Winning Numbers for {date} | LottoPick",
+        "drawTitleId": lambda name, id_: f"{name} Draw #{id_} Winning Numbers | {BRAND}",
+        "drawTitleDate": lambda name, date: f"{name} Winning Numbers for {date} | {BRAND}",
         "drawDescId": lambda name, id_, date, nums, bonus: f"{name} draw #{id_} ({date}) winning numbers: {nums}{bonus}.",
         "drawDescDate": lambda name, date, nums, bonus: f"{name} winning numbers for {date}: {nums}{bonus}.",
         "drawH1Id": lambda name, id_: f"{name} Draw #{id_}",
@@ -53,17 +69,17 @@ STR = {
         "nextDraw": "Next draw →",
         "recentHeading": "Recent Appearances",
         "numberDisclaimer": "Past frequency is for reference only and does not predict future draws — each drawing is a statistically independent event.",
-        "numberTitle": lambda name, n: f"{name} Number {n} — Appearance Count | LottoPick",
+        "numberTitle": lambda name, n: f"{name} Number {n} — Appearance Count | {BRAND}",
         "numberDesc": lambda name, n, count, total, pct: f"{name} number {n} has appeared {count} of {total} draws so far ({pct}%). See its recent draw history.",
         "numberH1": lambda name, n: f"{name} Number {n}",
         "numberSubtitle": lambda count, total, pct: f"Appeared {count} of {total} draws ({pct}%)",
         "allNumbers": "All numbers",
         "prevNumber": "← Previous number",
         "nextNumber": "Next number →",
-        "drawsIndexTitle": lambda name: f"{name} — Full Draw Archive | LottoPick",
+        "drawsIndexTitle": lambda name: f"{name} — Full Draw Archive | {BRAND}",
         "drawsIndexDesc": lambda name, latest: f"Every {name} draw result, grouped by year, from the earliest on record to draw {latest}.",
         "drawsIndexH1": lambda name: f"{name} — Draw Archive",
-        "numbersIndexTitle": lambda name: f"{name} — Number Frequency | LottoPick",
+        "numbersIndexTitle": lambda name: f"{name} — Number Frequency | {BRAND}",
         "numbersIndexDesc": lambda name: f"How many times each {name} number has been drawn — pick a number to see its full history.",
         "numbersIndexH1": lambda name: f"{name} — Number Frequency",
         "backToGenerator": "🌍 Back to World Lottery Generator",
@@ -75,8 +91,8 @@ STR = {
     "ja": {
         "darkToggle": "ダークモード切替",
         "drawnOn": lambda date: f"{date} 抽せん",
-        "drawTitleId": lambda name, id_: f"{name} 第{id_}回 当せん番号 | LottoPick",
-        "drawTitleDate": lambda name, date: f"{name} {date} 当せん番号 | LottoPick",
+        "drawTitleId": lambda name, id_: f"{name} 第{id_}回 当せん番号 | {BRAND}",
+        "drawTitleDate": lambda name, date: f"{name} {date} 当せん番号 | {BRAND}",
         "drawDescId": lambda name, id_, date, nums, bonus: f"{name} 第{id_}回（{date}）の当せん番号は {nums}{bonus} です。",
         "drawDescDate": lambda name, date, nums, bonus: f"{name} {date} の当せん番号は {nums}{bonus} です。",
         "drawH1Id": lambda name, id_: f"{name} 第{id_}回",
@@ -86,17 +102,17 @@ STR = {
         "nextDraw": "次回 →",
         "recentHeading": "最近の出現回",
         "numberDisclaimer": "過去の出現頻度は参考情報であり、次回の抽せん結果を予測するものではありません。各回の抽せんは独立した事象です。",
-        "numberTitle": lambda name, n: f"{name} {n}番 出現回数 | LottoPick",
+        "numberTitle": lambda name, n: f"{name} {n}番 出現回数 | {BRAND}",
         "numberDesc": lambda name, n, count, total, pct: f"{name} の{n}番はこれまで{total}回中{count}回出現しています（{pct}%）。最近の出現履歴を確認できます。",
         "numberH1": lambda name, n: f"{name} {n}番",
         "numberSubtitle": lambda count, total, pct: f"全{total}回中{count}回出現（{pct}%）",
         "allNumbers": "全番号一覧",
         "prevNumber": "← 前の番号",
         "nextNumber": "次の番号 →",
-        "drawsIndexTitle": lambda name: f"{name} 全回アーカイブ | LottoPick",
+        "drawsIndexTitle": lambda name: f"{name} 全回アーカイブ | {BRAND}",
         "drawsIndexDesc": lambda name, latest: f"{name} の全抽せん結果を年別にまとめました（第{latest}回まで）。",
         "drawsIndexH1": lambda name: f"{name} 抽せんアーカイブ",
-        "numbersIndexTitle": lambda name: f"{name} 番号別出現回数 | LottoPick",
+        "numbersIndexTitle": lambda name: f"{name} 番号別出現回数 | {BRAND}",
         "numbersIndexDesc": lambda name: f"{name} の各番号がこれまで何回出現したか確認できます。",
         "numbersIndexH1": lambda name: f"{name} 番号別出現回数",
         "backToGenerator": "🌍 世界の宝くじジェネレーターに戻る",
@@ -108,8 +124,8 @@ STR = {
     "it": {
         "darkToggle": "Attiva/disattiva la modalità scura",
         "drawnOn": lambda date: f"Estrazione del {date}",
-        "drawTitleId": lambda name, id_: f"{name} Estrazione #{id_} - Numeri Vincenti | LottoPick",
-        "drawTitleDate": lambda name, date: f"{name} - Numeri Vincenti del {date} | LottoPick",
+        "drawTitleId": lambda name, id_: f"{name} Estrazione #{id_} - Numeri Vincenti | {BRAND}",
+        "drawTitleDate": lambda name, date: f"{name} - Numeri Vincenti del {date} | {BRAND}",
         "drawDescId": lambda name, id_, date, nums, bonus: f"{name} estrazione #{id_} ({date}): numeri vincenti {nums}{bonus}.",
         "drawDescDate": lambda name, date, nums, bonus: f"{name} - numeri vincenti del {date}: {nums}{bonus}.",
         "drawH1Id": lambda name, id_: f"{name} Estrazione #{id_}",
@@ -119,17 +135,17 @@ STR = {
         "nextDraw": "Estrazione successiva →",
         "recentHeading": "Estrazioni recenti",
         "numberDisclaimer": "La frequenza passata è solo a titolo informativo e non predice le estrazioni future: ogni estrazione è un evento statisticamente indipendente.",
-        "numberTitle": lambda name, n: f"{name} Numero {n} - Frequenza | LottoPick",
+        "numberTitle": lambda name, n: f"{name} Numero {n} - Frequenza | {BRAND}",
         "numberDesc": lambda name, n, count, total, pct: f"Il numero {n} di {name} è uscito {count} volte su {total} estrazioni ({pct}%). Consulta la cronologia recente.",
         "numberH1": lambda name, n: f"{name} Numero {n}",
         "numberSubtitle": lambda count, total, pct: f"Uscito {count} volte su {total} estrazioni ({pct}%)",
         "allNumbers": "Tutti i numeri",
         "prevNumber": "← Numero precedente",
         "nextNumber": "Numero successivo →",
-        "drawsIndexTitle": lambda name: f"{name} - Archivio Estrazioni | LottoPick",
+        "drawsIndexTitle": lambda name: f"{name} - Archivio Estrazioni | {BRAND}",
         "drawsIndexDesc": lambda name, latest: f"Tutte le estrazioni di {name}, raggruppate per anno, fino al {latest}.",
         "drawsIndexH1": lambda name: f"{name} - Archivio Estrazioni",
-        "numbersIndexTitle": lambda name: f"{name} - Frequenza Numeri | LottoPick",
+        "numbersIndexTitle": lambda name: f"{name} - Frequenza Numeri | {BRAND}",
         "numbersIndexDesc": lambda name: f"Quante volte è uscito ogni numero di {name}: scegline uno per la cronologia completa.",
         "numbersIndexH1": lambda name: f"{name} - Frequenza Numeri",
         "backToGenerator": "🌍 Torna al generatore di lotterie mondiali",
@@ -168,7 +184,7 @@ def band_class(n, max_n):
     return "green"
 
 
-def page_shell(key, meta, lang, title, description, body, canonical_path):
+def page_shell(key, meta, lang, title, description, body, canonical_path, noindex=False):
     s = STR[lang]
     canonical = f"{SITE_URL}{canonical_path}"
     footer_nav = "\n        ".join([
@@ -177,14 +193,15 @@ def page_shell(key, meta, lang, title, description, body, canonical_path):
         f'<a href="/draws/{key}/index.html">{s["backToDraws"](meta["name"])}</a>',
         f'<a href="/stats.html">{s["backToStats"]}</a>',
     ])
-    return f"""<!DOCTYPE html>
+    robots = ROBOTS_NOINDEX if noindex else ""
+    html = f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
-<meta name="description" content="{description}">
+{robots}<meta name="description" content="{description}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{BRAND}">
@@ -217,6 +234,7 @@ def page_shell(key, meta, lang, title, description, body, canonical_path):
 </body>
 </html>
 """
+    return clean_urls(html)
 
 
 def render_draw_page(key, meta, lang, draw, prev_id, next_id):
@@ -274,7 +292,7 @@ def render_draw_page(key, meta, lang, draw, prev_id, next_id):
       {nav_bits[2]}
     </nav>
 """
-    return page_shell(key, meta, lang, title, description, body, f"/draws/{key}/{draw['id']}.html")
+    return page_shell(key, meta, lang, title, description, body, f"/draws/{key}/{draw['id']}.html", noindex=True)
 
 
 def render_draws_index(key, meta, lang, draws):
@@ -349,7 +367,7 @@ def render_number_page(key, meta, lang, num, stats, recent_draws):
       {nav_bits[2]}
     </nav>
 """
-    return page_shell(key, meta, lang, title, description, body, f"/numbers/{key}/{num}.html")
+    return page_shell(key, meta, lang, title, description, body, f"/numbers/{key}/{num}.html", noindex=True)
 
 
 def render_numbers_index(key, meta, lang):

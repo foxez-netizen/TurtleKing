@@ -247,6 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const worldLink = document.getElementById("world-link");
   if (worldLink) {
-    worldLink.href = `/world.html?game=${APP_I18N_DATA.game}&lang=${APP_I18N_DATA.lang}`;
+    worldLink.href = `/world?game=${APP_I18N_DATA.game}&lang=${APP_I18N_DATA.lang}`;
   }
 });
