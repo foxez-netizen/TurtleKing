@@ -743,3 +743,97 @@ footer {
 /* 로또 공 아이콘 */
 .lotto-ico{flex:none}
 h1 .lotto-ico{display:block;height:2.2em!important;margin:0 auto 8px!important}
+
+.saju-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #d3a46a;
+  background: #d3a46a1f;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.saju-pill:hover {
+  background: #d3a46a3d;
+  transform: scale(1.03);
+}
+
+.saju-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px dashed #d3a46a;
+  background: linear-gradient(135deg, #d3a46a24, #8a5a2b14);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.1s ease;
+}
+
+.saju-banner:hover {
+  transform: scale(1.01);
+}
+
+.saju-banner-ico {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.saju-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.saju-banner-text small {
+  color: var(--subtitle);
+  font-size: 0.8rem;
+}
+
+.saju-banner-go {
+  white-space: nowrap;
+  font-weight: 800;
+  color: #d3a46a;
+}
+
+[data-theme="light"] .saju-banner-go {
+  color: #8a5a2b;
+}
+
+@media (max-width: 480px) {
+  .saju-banner {
+    flex-wrap: wrap;
+  }
+  .saju-banner-go {
+    width: 100%;
+    text-align: right;
+  }
+}
+
+.visit-counter {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--panel-border);
+  font-size: 0.75rem;
+  color: var(--footer-text);
+}
+
+.visit-counter b {
+  color: var(--text);
+}
+
+.visit-counter[hidden] { display: none; }
