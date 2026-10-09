@@ -224,6 +224,7 @@ def page_shell(key, meta, lang, title, description, body, canonical_path, noinde
         <span id="theme-toggle-label">Darkmode</span>
       </button>
 {body}
+    <div id="yt-funnel"></div>
     <footer>
       <nav class="site-nav">
         {footer_nav}
@@ -231,6 +232,7 @@ def page_shell(key, meta, lang, title, description, body, canonical_path, noinde
     </footer>
   </div>
 <script src="/theme.js"></script>
+<script src="/yt-funnel.js" defer></script>
 </body>
 </html>
 """

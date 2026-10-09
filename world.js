@@ -280,7 +280,10 @@ document.getElementById("generate").addEventListener("click", () => {
     for (let i = 0; i < count; i++) {
       games.push(generateOneGame(config, excludedMain));
     }
-    loadGameStats(key).then((stats) => renderGames(config, games, stats));
+    loadGameStats(key).then((stats) => {
+      renderGames(config, games, stats);
+      if (window.YTFunnel) window.YTFunnel.render();
+    });
   } catch (err) {
     const results = document.getElementById("results");
     results.innerHTML = `<p style="color:#ff7272; text-align:center;">${err.message}</p>`;
