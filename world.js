@@ -106,11 +106,9 @@ function populateCountSelect() {
   select.value = current;
 }
 
-function applyGameLanguage(key) {
-  const lang = APP_I18N.gameLang(key);
-  if (lang !== APP_I18N.lang) {
-    APP_I18N.setLang(lang);
-  }
+// The UI language stays fixed to the page's language (URL / browser) so the
+// header, banners and labels don't change or shift when switching games.
+function applyGameLanguage() {
   document.documentElement.lang = APP_I18N.lang;
   document.getElementById("quick-flags").setAttribute("aria-label", APP_I18N.t("quickFlagsLabel"));
   populateCountSelect();
@@ -237,7 +235,6 @@ document.getElementById("results").addEventListener("click", (e) => {
 
 function selectGame(key) {
   document.getElementById("game").value = key;
-  applyGameLanguage(key);
   updateGameInfo();
   document.getElementById("generate").click();
 }
@@ -255,7 +252,7 @@ excludeInput.addEventListener("input", validateExcludeFormat);
 
 populateGameSelect();
 populateQuickFlags();
-applyGameLanguage(document.getElementById("game").value);
+applyGameLanguage();
 updateGameInfo();
 
 document.getElementById("game").addEventListener("change", () => {
