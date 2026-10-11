@@ -3,13 +3,18 @@
 Generate /videos/index.html — the 거북왕의 사주풀이 YouTube video section —
 from data/videos.json.
 
-data/videos.json is refreshed weekly from the channel RSS feed by
+data/videos.json is refreshed daily from the channel RSS feed by
 data/scripts/update_videos.py (GitHub Actions: update-videos.yml); this
 script then lays it out as three sections:
 
 - 이번 주 인기: most views gained over the last 7 days (videos + Shorts)
 - 최신 영상: newest long-form videos
 - 쇼츠: newest Shorts
+
+The page is deliberately short (4 + 4 + 6 cards): a long-form video and a
+Short that share a title are the same story, so each story appears only once
+(popular first, then long-form, then Shorts), and the rest of the catalogue
+is one click away on the channel itself.
 
 Hand-written person / concept / note / duration fields in the JSON win over
 the auto-filled ones. It also refreshes the video CTA subtitle on the home
@@ -32,8 +37,8 @@ DATA = f"{ROOT}/data/videos.json"
 OUT_DIR = f"{ROOT}/videos"
 SITE = "https://luckyturtle.life"
 INDEX = f"{ROOT}/index.html"
-LATEST_N = 12   # long-form cards in 최신 영상
-SHORTS_N = 12   # tiles in 쇼츠
+LATEST_N = 4    # long-form cards in 최신 영상
+SHORTS_N = 6    # tiles in 쇼츠
 POPULAR_N = 4   # tiles in 이번 주 인기
 
 PLAY_SVG = ('<svg class="yt-ico" viewBox="0 0 28 20" aria-hidden="true">'
@@ -119,12 +124,31 @@ def tile(v, rank=None, gain=None):
       </div>"""
 
 
-def section(title, sub, body, cls=""):
+def story_key(v):
+    """Same story across a long-form video and its Short: compare titles sans hashtags/spaces."""
+    return re.sub(r"#\S+|\s+", "", v.get("title", ""))
+
+
+def pick(items, n, seen, key=lambda x: x):
+    out = []
+    for it in items:
+        k = story_key(key(it))
+        if k in seen:
+            continue
+        seen.add(k)
+        out.append(it)
+        if len(out) == n:
+            break
+    return out
+
+
+def section(title, sub, body, cls="", more=""):
+    more = f'\n    <a class="vmore" href="{more}" target="_blank" rel="noopener">채널에서 전체 보기 ↗</a>' if more else ""
     return f"""  <section class="vsec">
     <h2>{title} <small>{sub}</small></h2>
     {f'<div class="{cls}">' if cls else ''}
 {body}
-    {'</div>' if cls else ''}
+    {'</div>' if cls else ''}{more}
   </section>"""
 
 
@@ -146,24 +170,29 @@ def main():
     videos = sorted(d["videos"], key=lambda v: v.get("published", ""), reverse=True)
     today = datetime.date.fromisoformat(d.get("updated") or datetime.date.today().isoformat())
 
-    longs = [v for v in videos if v.get("type") != "short"][:LATEST_N]
-    shorts = [v for v in videos if v.get("type") == "short"][:SHORTS_N]
+    all_longs = [v for v in videos if v.get("type") != "short"]
     ranked = sorted(((week_gain(v, today), v) for v in videos), key=lambda t: -(t[0] or 0))
-    popular = [(g, v) for g, v in ranked if g][:POPULAR_N]
+    seen = set()
+    popular = pick([(g, v) for g, v in ranked if g], POPULAR_N, seen, key=lambda t: t[1])
+    longs = pick(all_longs, LATEST_N, seen)
+    shorts = pick([v for v in videos if v.get("type") == "short"], SHORTS_N, seen)
+    ch_url = esc(ch["url"])
 
     sections = []
     if popular:
         sections.append(section("🔥 이번 주 인기", "최근 7일 조회수 기준",
                                 "\n".join(tile(v, i + 1, g) for i, (g, v) in enumerate(popular)), "vgrid"))
     if longs:
-        sections.append(section("🎬 최신 영상", "새로 올라온 순", "\n".join(card(v) for v in longs)))
+        sections.append(section("🎬 최신 영상", "새로 올라온 순", "\n".join(card(v) for v in longs),
+                                more=f"{ch_url}/videos"))
     if shorts:
-        sections.append(section("⚡ 쇼츠", "1분 사주 이야기", "\n".join(tile(v) for v in shorts), "vgrid shorts"))
+        sections.append(section("⚡ 쇼츠", "1분 사주 이야기", "\n".join(tile(v) for v in shorts), "vgrid shorts",
+                                more=f"{ch_url}/shorts"))
     body = "\n\n".join(sections)
 
     titles = " · ".join(v.get("person") or concept_of(v) for v in longs[:4] if v.get("person") or concept_of(v))
     desc = f"거북왕의 사주풀이 유튜브 영상과 쇼츠 모음. {titles} 등 인물과 신살 이야기를 명리학으로 풀어 봅니다."
-    updated = f'<p class="vupdated">매주 자동 업데이트 · 마지막 업데이트 {today.isoformat()}</p>'
+    updated = f'<p class="vupdated">매일 자동 업데이트 · 마지막 업데이트 {today.isoformat()}</p>'
 
     page = f"""<!DOCTYPE html>
 <html lang="ko">
@@ -236,7 +265,7 @@ document.querySelectorAll('.vplayer').forEach(function (b) {{
     with open(f"{OUT_DIR}/index.html", "w", encoding="utf-8") as f:
         f.write(page)
     print(f"Wrote videos/index.html: {len(popular)} popular, {len(longs)} videos, {len(shorts)} shorts")
-    update_home_cta(longs[0] if longs else (videos[0] if videos else None))
+    update_home_cta(all_longs[0] if all_longs else (videos[0] if videos else None))
 
 
 if __name__ == "__main__":

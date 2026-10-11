@@ -34,7 +34,7 @@ NS = {
     "yt": "http://www.youtube.com/xml/schemas/2015",
     "m": "http://search.yahoo.com/mrss/",
 }
-HISTORY_KEEP = 10  # snapshots per video (~10 weeks at one run a week)
+HISTORY_KEEP = 14  # snapshots per video (~2 weeks at one run a day)
 
 # "백호대살(白虎大煞)", "식신생재(食神生財)" … a Hangul term followed by its Hanja.
 CONCEPT_RE = re.compile(r"([가-힣]+(?:·[가-힣]+)*)\s*\(([一-鿿·]+)\)")
