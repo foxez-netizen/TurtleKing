@@ -1,9 +1,9 @@
 {
   "source": "https://www.beatlottery.co.uk/lotto/draw-history/year/<year> (third-party UK Lotto draw archive)",
-  "asOf": "draws from 2015-10-10 to 2026-10-21 (current 6/59 matrix only; pre-2015-10-10 draws under the old 6/49 matrix excluded)",
-  "totalDraws": 1152,
-  "latestId": "2026-10-21",
-  "latestDate": "2026-10-21",
+  "asOf": "draws from 2015-10-10 to 2026-10-24 (current 6/59 matrix only; pre-2015-10-10 draws under the old 6/49 matrix excluded)",
+  "totalDraws": 1153,
+  "latestId": "2026-10-24",
+  "latestDate": "2026-10-24",
   "main": {
     "1": 108,
     "2": 111,
@@ -26,7 +26,7 @@
     "19": 112,
     "20": 127,
     "21": 97,
-    "22": 117,
+    "22": 118,
     "23": 109,
     "24": 110,
     "25": 105,
@@ -51,18 +51,18 @@
     "44": 102,
     "45": 120,
     "46": 116,
-    "47": 122,
-    "48": 106,
-    "49": 115,
+    "47": 123,
+    "48": 107,
+    "49": 116,
     "50": 109,
     "51": 114,
     "52": 133,
     "53": 113,
     "54": 131,
-    "55": 103,
+    "55": 104,
     "56": 115,
     "57": 119,
     "58": 129,
-    "59": 125
+    "59": 126
   }
 }
