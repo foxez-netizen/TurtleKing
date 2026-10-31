@@ -1,13 +1,13 @@
 {
   "source": "https://www.mes-resultats-fdj.fr/api/telecharger/euromillions (FDJ official EuroMillions draw history mirror)",
-  "asOf": "draws from 2016-09-27 to 2026-10-27 (current 1-12 star rules only; 940 pre-2016-09-27 draws under older star ranges excluded)",
-  "totalDraws": 1053,
-  "latestId": "26086",
-  "latestDate": "2026-10-27",
+  "asOf": "draws from 2016-09-27 to 2026-10-30 (current 1-12 star rules only; 940 pre-2016-09-27 draws under older star ranges excluded)",
+  "totalDraws": 1054,
+  "latestId": "26087",
+  "latestDate": "2026-10-30",
   "main": {
     "1": 90,
     "2": 106,
-    "3": 103,
+    "3": 104,
     "4": 94,
     "5": 105,
     "6": 99,
@@ -16,12 +16,12 @@
     "9": 103,
     "10": 118,
     "11": 96,
-    "12": 108,
+    "12": 109,
     "13": 109,
-    "14": 105,
+    "14": 106,
     "15": 107,
     "16": 107,
-    "17": 122,
+    "17": 123,
     "18": 91,
     "19": 112,
     "20": 117,
@@ -41,7 +41,7 @@
     "34": 112,
     "35": 118,
     "36": 93,
-    "37": 106,
+    "37": 107,
     "38": 97,
     "39": 109,
     "40": 86,
@@ -59,7 +59,7 @@
   "bonus": {
     "1": 157,
     "2": 204,
-    "3": 197,
+    "3": 198,
     "4": 159,
     "5": 163,
     "6": 188,
@@ -68,6 +68,6 @@
     "9": 176,
     "10": 168,
     "11": 169,
-    "12": 182
+    "12": 183
   }
 }
