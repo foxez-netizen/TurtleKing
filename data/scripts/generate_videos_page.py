@@ -211,7 +211,6 @@ def main():
 <meta property="og:description" content="{esc(desc)}">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="/saju.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2176623685813595" crossorigin="anonymous"></script>
 </head>
 <body>
 {GTM_BODY}
@@ -239,7 +238,7 @@ def main():
   <p class="disc">영상 속 사주 해석은 전통 명리학에 기반한 참고용 이야기입니다. <a href="/guide">사주 가이드</a>에서 용어를 더 자세히 볼 수 있고, <a href="/">내 사주</a>도 바로 확인해 볼 수 있습니다.</p>
 
   <footer>
-    <a href="/">사주 보기</a><a href="/guide">사주 가이드</a><a href="/videos/">영상</a><a href="/lotto/">로또</a><a href="/about">소개</a><a href="/privacy">개인정보처리방침</a>
+    <a href="/">사주 보기</a><a href="/guide">사주 가이드</a><a href="/videos/">영상</a><a href="/lotto/">로또</a><a href="/blog/">사주 칼럼</a><a href="/about">소개</a><a href="/contact">문의</a><a href="/privacy">개인정보처리방침</a>
     <div style="margin-top:8px">© 느릿느릿 사주풀이 · luckyturtle.life</div>
   </footer>
 </div>

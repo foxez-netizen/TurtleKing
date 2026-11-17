@@ -53,7 +53,7 @@ def build_pages_sitemap():
     static_pages = [
         "/", "/guide", "/videos/", "/lotto/", "/world", "/ko/world", "/en/world",
         "/ja/world", "/it/world", "/stats", "/about",
-        "/privacy", "/partnership", "/draws/", "/numbers/",
+        "/privacy", "/partnership", "/contact", "/blog/", "/draws/", "/numbers/",
         "/en/", "/en/blog/", "/en/about", "/en/contact", "/en/privacy",
     ]
     # English blog posts: picked up from the folder so new posts are listed
@@ -62,6 +62,12 @@ def build_pages_sitemap():
     for name in sorted(os.listdir(blog_dir)):
         if name.endswith(".html") and name != "index.html":
             static_pages.append(f"/en/blog/{name[:-5]}")
+    # Korean saju columns (/blog/*.html), also picked up from the folder.
+    ko_blog_dir = os.path.join(ROOT, "blog")
+    if os.path.isdir(ko_blog_dir):
+        for name in sorted(os.listdir(ko_blog_dir)):
+            if name.endswith(".html") and name != "index.html":
+                static_pages.append(f"/blog/{name[:-5]}")
     for key in WORLD_GAMES:
         static_pages.append(f"/draws/{key}/")
         static_pages.append(f"/numbers/{key}/")

@@ -86,6 +86,10 @@ def fmt_won(n):
 def page_shell(title, description, body, canonical_path, noindex=False):
     canonical = f"{SITE_URL}{canonical_path}"
     robots = ROBOTS_NOINDEX if noindex else ""
+    # AdSense only on indexable, editorially written pages. The thousands of
+    # auto-generated draw/number pages are noindex and must not carry ads
+    # ("low value content" policy).
+    adsense = ""  # re-enable for index pages after AdSense approval if desired
     html = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -105,7 +109,7 @@ def page_shell(title, description, body, canonical_path, noindex=False):
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{description}">
 <link rel="stylesheet" href="/style.css">
-{ADSENSE_SCRIPT}
+{adsense}
 </head>
 <body>
 {GTM_BODY}
