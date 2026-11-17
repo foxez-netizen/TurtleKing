@@ -26,6 +26,9 @@ jobs:
       - name: Refresh Korea Lotto 6/45
         run: python3 data/scripts/update_kr645.py
 
+      - name: Regenerate Korea Lotto 6/45 pages (template changes)
+        run: python3 data/scripts/generate_kr645_pages.py
+
       - name: Refresh the other 7 world lottery games
         run: python3 data/scripts/update_world.py
 
